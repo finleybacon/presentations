@@ -1,0 +1,24 @@
+project:
+  type: website
+
+website:
+  title: "Finley Bacon"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+  favicon: favicon.ico
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
+  revealjs: 
+    logo: favicon.ico
+    incremental: true
+    slide-number: c
+    theme: dark
+    transition: fade

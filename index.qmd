@@ -1,0 +1,19 @@
+---
+title: Presentations
+format:
+  html:
+    page-layout: full
+listing:
+  contents: .
+  date-format: iso
+  field-display-names:
+    subtitle: Audience
+  fields:
+    - date
+    - title
+    - subtitle
+    - author
+  page-size: 10
+  sort: date desc
+  type: table
+---

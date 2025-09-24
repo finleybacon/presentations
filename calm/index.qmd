@@ -1,0 +1,30 @@
+---
+author: "Finley Bacon"
+date: 2025-09-24
+format: revealjs
+subtitle: "ISD Architecture"
+title: "CALM: Architecture-as-Code"
+---
+
+# Architecture as Code?
+
+## What? {data-menu-title="Architecture as Code (i)"}
+
+- List of stuff
+- Which
+- Reveals
+- Incrementally
+
+## Why {data-menu-title="Architecture as Code (ii)"}
+
+- Cos
+- Of
+- All
+- The
+- Benefits
+
+# CALM
+
+## What is CALM
+
+The Common Architecture Language Model
