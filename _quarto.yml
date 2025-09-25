@@ -18,7 +18,10 @@ format:
     toc: true
   revealjs: 
     logo: favicon.ico
+    link-external-icon: true
     incremental: true
+    preview-links: true
     slide-number: c
     theme: dark
     transition: fade
+    css: styles.css

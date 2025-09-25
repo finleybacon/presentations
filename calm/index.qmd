@@ -3,28 +3,622 @@ author: "Finley Bacon"
 date: 2025-09-24
 format: revealjs
 subtitle: "ISD Architecture"
-title: "CALM: Architecture-as-Code"
+title: "CALM:<br> Architecture-as-Code"
 ---
 
 # Architecture as Code?
 
-## What? {data-menu-title="Architecture as Code (i)"}
+## What?
 
-- List of stuff
-- Which
-- Reveals
+- Modelling architectures in code
+- JSON, DSLs 
 - Incrementally
 
-## Why {data-menu-title="Architecture as Code (ii)"}
+## Why
 
 - Cos
-- Of
-- All
 - The
 - Benefits
 
+# C4 Model
+
+## Cast your minds back {data-menu-title="Recap"}
+
+![](figures/c4-static.png){.absolute bottom=2 width="1050" height="580"}
+
+## Data Archive
+
+![](figures/DataArchivePlatform.png){.absolute bottom=2 left=211 width="627" height="600"}
+
+
+## ARC Services Portal
+
+![](figures/C2-Portal_Containers.png){.absolute bottom=2 left=68 width="914" height="600"}
+
+## {data-menu-title="Origins"}
+
+[c4model.com](https://c4model.com/):
+
+> The C4 model was created as a way to help software development teams describe and communicate software architecture, both during up-front design sessions and when retrospectively documenting an existing codebase.
+
+## Rationale 
+
+::: {.r-hstack}
+::: {.r-stack}
+![](/calm/figures/sketch-1.jpg){.fragment height=280}
+![](/calm/figures/sketch-3.jpg){.fragment height=280}
+:::
+
+::: {.r-stack}
+![](/calm/figures/sketch-2.jpg){.fragment height=280}
+![](/calm/figures/sketch-4.jpg){.fragment height=280}
+:::
+:::
+
+
+## {data-menu-title="Helps Avoid"}
+
+Common pitfalls:
+
+- Inconsistent notation (colour coding, shapes, line styles, etc.)
+- Ambiguous naming
+- Unlabelled relationships
+- Generic terminology
+- Missing technology choices
+- Mixed abstractions
+- **Not good at communicating architecture**
+
+## Workflow {data-menu-title="Workflow (i)"} 
+
+1. Model using [Structurizr](https://docs.structurizr.com/) DSL
+
+::: {.fragment .fade-left}
+
+```{.python code-line-numbers="5|11,12|14,15,16,17|19|23|26,27,28|32|33,34,35,40,41,42|25,31,38"}
+workspace "ARC Services Portal" "Models the architecture of a research services web portal" {
+
+    !identifiers hierarchical
+
+    model {
+
+        properties {
+            "structurizr.groupSeparator" "/"
+        }
+
+        user = person "Researcher" "Uses the platform to manage their research profile and data."
+        admin = person "Admin" "Portal user with elevated permissions to edit data or review submissions."
+
+        entra = softwareSystem "Microsoft Entra" "Identity provider (SSO)" "Existing System"
+        tre = softwareSystem "TRE" "Secure processing environment for sensitive research data" "Existing System"
+        ghcr = softwareSystem "GitHub Container Registry" "Stores container images" "Existing System"
+        uclSystem = softwareSystem "..." "Other UCL consumer of portal data" "Existing System"
+
+        portal = softwareSystem "ARC Services Portal" "Enables management of Studies, Projects, user training and information governance" {
+
+            group "K8S cluster" {
+
+                api = container "API" "API backend with /web/api and /tre/api (and other) endpoints" "Go" {
+
+                    group "Shared Services" {
+                        projectService = component "Project Service" "Handles project workflows" "Go"
+                        userService = component "User Service" "Handles user workflows" "Go"
+                        otherService = component "..." "Other backend services" "Go"
+                    }
+
+                    group "Web API" {
+                        webhttpHandlers = component "HTTP Handlers for web frontend" "Handles REST endpoints" "Go"
+                        webhttpHandlers -> userService "Calls"
+                        webhttpHandlers -> projectService "Calls"
+                        webhttpHandlers -> otherService "Calls"
+                    }
+
+                    group "TRE API" {
+                        trehttpHandlers = component "HTTP Handlers for UCL TREs" "Handles REST endpoints" "Go"
+                        trehttpHandlers -> userService "Calls"
+                        trehttpHandlers -> projectService "Calls"
+                        trehttpHandlers -> otherService "Calls"
+                    }
+
+                    group "Other API" {
+                        otherhttpHandlers = component "HTTP Handlers for other UCL systems" "Handles REST endpoints" "Go"
+                        otherhttpHandlers -> otherService "Calls"
+                    }
+                }
+
+                webFrontend = container "Web Frontend" "User-facing web app" "React, TypeScript" {
+                    pages = component "Pages" "UCL Design System-styled pages for profile, studies, projects" "React"
+                    apiClient = component "API Client" "Generated from OpenAPI spec" "TypeScript"
+
+                    pages -> apiClient "Calls"
+                }
+
+                oauth2Proxy = container "OAuth2 Proxy" "Proxy providing OAuth2 authentication" "quay.io/oauth2-proxy/oauth2-proxy"
+
+                nginx = container "Reverse Proxy" "Routes requests to frontend and backend" "nginx"
+
+                postgres = container "Database" "Stores user, project, portal etc. data" "PostgreSQL"
+
+                api.projectService -> postgres "Reads/writes data"
+                api.userService -> postgres "Reads/writes data"
+                api.otherService -> postgres "Read/writes data"
+                nginx -> api.trehttpHandlers "Proxies /tre/api requests"
+                nginx -> api.otherhttpHandlers "Proxies other api requests"
+                nginx -> webFrontend.pages "Serves"
+                webFrontend.apiClient -> oauth2Proxy "Forwards /web/api requests for authentication"
+                oauth2Proxy -> api.webhttpHandlers "Forwards authenticated /web/api requests to backend"
+
+            }
+
+            deploy = container "CI/CD Pipeline" "Builds and deploys infrastructure and app" "GitHub Actions + Terraform" {
+
+                group "Portal App Repository" {
+                    gha_portal = component "GitHub Actions (Portal Repo)" "Builds & pushes container images" "GitHub Actions"
+                }
+
+                group "Infrastructure Repository" {
+                    gha_infra = component "GitHub Actions (Infra Repo)" "Applies Terraform in AWS" "GitHub Actions"
+                    tf = component "Terraform Code" "Defines and provisions cloud infra" "Terraform"
+                    gha_infra -> tf "Runs"
+                }
+            }
+
+            portal.deploy.tf -> ghcr "Pulls images for deployment"
+            portal.deploy.gha_portal -> ghcr "Pushes container images"
+        }
+
+        user -> portal.webFrontend.pages "Accesses via browser"
+        admin -> portal.webFrontend.pages "Administers via browser"
+        portal.oauth2Proxy -> entra "Authenticates requests against" "SSO"
+        tre -> portal.nginx "Accesses /tre/api for data retrieval" "REST/JSON"
+        uclSystem -> portal.nginx "Accesses api for data retrieval" "REST/JSON"
+    }
+
+    views {
+
+        systemContext portal "C1-Portal_Context" {
+            include *
+            description "Context diagram showing how the Research Platform fits within the broader environment."
+        }
+
+        container portal "C2-Portal_Containers" {
+            include *
+            description "Container view showing major services running in Kubernetes, including API, frontend, proxy, and DB."
+        }
+
+        component portal.api "C3-Web_API_Internals" {
+            include *
+            description "Component view showing key service components inside the API backend."
+        }
+
+        component portal.webFrontend "C3-Web_Frontend_Internals" {
+            include *
+            description "Component view showing the UI modules and OpenAPI client."
+        }
+
+        component portal.deploy "C3-Deployment_Workflow" {
+            include *
+            description "Component view showing how CI/CD is managed using GitHub Actions and Terraform."
+        }
+
+        styles {
+            element "Person" {
+                shape person
+                background #08427b
+                color #ffffff
+            }
+
+            element "Software System" {
+                background #1168bd
+                color #ffffff
+            }
+
+            element "Container" {
+                background #438dd5
+                color #ffffff
+            }
+
+            element "Component" {
+                background #85bbf0
+                color #000000
+            }
+
+            element "Existing System" {
+                background #999999
+            }
+
+            element "Group:K8S cluster" {
+                color #d86613
+                icon https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-elastic-kubernetes-service.png
+            }
+        }
+    }
+}
+```
+:::
+
+## Workflow {data-menu-title="Workflow (ii)"} 
+
+::: {.nonincremental}
+2. Create views
+:::
+```{.python code-line-numbers="25,31,38|99|101,102,103,104|111,112,113,114"}
+workspace "ARC Services Portal" "Models the architecture of a research services web portal" {
+
+    !identifiers hierarchical
+
+    model {
+
+        properties {
+            "structurizr.groupSeparator" "/"
+        }
+
+        user = person "Researcher" "Uses the platform to manage their research profile and data."
+        admin = person "Admin" "Portal user with elevated permissions to edit data or review submissions."
+
+        entra = softwareSystem "Microsoft Entra" "Identity provider (SSO)" "Existing System"
+        tre = softwareSystem "TRE" "Secure processing environment for sensitive research data" "Existing System"
+        ghcr = softwareSystem "GitHub Container Registry" "Stores container images" "Existing System"
+        uclSystem = softwareSystem "..." "Other UCL consumer of portal data" "Existing System"
+
+        portal = softwareSystem "ARC Services Portal" "Enables management of Studies, Projects, user training and information governance" {
+
+            group "K8S cluster" {
+
+                api = container "API" "API backend with /web/api and /tre/api (and other) endpoints" "Go" {
+
+                    group "Shared Services" {
+                        projectService = component "Project Service" "Handles project workflows" "Go"
+                        userService = component "User Service" "Handles user workflows" "Go"
+                        otherService = component "..." "Other backend services" "Go"
+                    }
+
+                    group "Web API" {
+                        webhttpHandlers = component "HTTP Handlers for web frontend" "Handles REST endpoints" "Go"
+                        webhttpHandlers -> userService "Calls"
+                        webhttpHandlers -> projectService "Calls"
+                        webhttpHandlers -> otherService "Calls"
+                    }
+
+                    group "TRE API" {
+                        trehttpHandlers = component "HTTP Handlers for UCL TREs" "Handles REST endpoints" "Go"
+                        trehttpHandlers -> userService "Calls"
+                        trehttpHandlers -> projectService "Calls"
+                        trehttpHandlers -> otherService "Calls"
+                    }
+
+                    group "Other API" {
+                        otherhttpHandlers = component "HTTP Handlers for other UCL systems" "Handles REST endpoints" "Go"
+                        otherhttpHandlers -> otherService "Calls"
+                    }
+                }
+
+                webFrontend = container "Web Frontend" "User-facing web app" "React, TypeScript" {
+                    pages = component "Pages" "UCL Design System-styled pages for profile, studies, projects" "React"
+                    apiClient = component "API Client" "Generated from OpenAPI spec" "TypeScript"
+
+                    pages -> apiClient "Calls"
+                }
+
+                oauth2Proxy = container "OAuth2 Proxy" "Proxy providing OAuth2 authentication" "quay.io/oauth2-proxy/oauth2-proxy"
+
+                nginx = container "Reverse Proxy" "Routes requests to frontend and backend" "nginx"
+
+                postgres = container "Database" "Stores user, project, portal etc. data" "PostgreSQL"
+
+                api.projectService -> postgres "Reads/writes data"
+                api.userService -> postgres "Reads/writes data"
+                api.otherService -> postgres "Read/writes data"
+                nginx -> api.trehttpHandlers "Proxies /tre/api requests"
+                nginx -> api.otherhttpHandlers "Proxies other api requests"
+                nginx -> webFrontend.pages "Serves"
+                webFrontend.apiClient -> oauth2Proxy "Forwards /web/api requests for authentication"
+                oauth2Proxy -> api.webhttpHandlers "Forwards authenticated /web/api requests to backend"
+
+            }
+
+            deploy = container "CI/CD Pipeline" "Builds and deploys infrastructure and app" "GitHub Actions + Terraform" {
+
+                group "Portal App Repository" {
+                    gha_portal = component "GitHub Actions (Portal Repo)" "Builds & pushes container images" "GitHub Actions"
+                }
+
+                group "Infrastructure Repository" {
+                    gha_infra = component "GitHub Actions (Infra Repo)" "Applies Terraform in AWS" "GitHub Actions"
+                    tf = component "Terraform Code" "Defines and provisions cloud infra" "Terraform"
+                    gha_infra -> tf "Runs"
+                }
+            }
+
+            portal.deploy.tf -> ghcr "Pulls images for deployment"
+            portal.deploy.gha_portal -> ghcr "Pushes container images"
+        }
+
+        user -> portal.webFrontend.pages "Accesses via browser"
+        admin -> portal.webFrontend.pages "Administers via browser"
+        portal.oauth2Proxy -> entra "Authenticates requests against" "SSO"
+        tre -> portal.nginx "Accesses /tre/api for data retrieval" "REST/JSON"
+        uclSystem -> portal.nginx "Accesses api for data retrieval" "REST/JSON"
+    }
+
+    views {
+
+        systemContext portal "C1-Portal_Context" {
+            include *
+            description "Context diagram showing how the Research Platform fits within the broader environment."
+        }
+
+        container portal "C2-Portal_Containers" {
+            include *
+            description "Container view showing major services running in Kubernetes, including API, frontend, proxy, and DB."
+        }
+
+        component portal.api "C3-Web_API_Internals" {
+            include *
+            description "Component view showing key service components inside the API backend."
+        }
+
+        component portal.webFrontend "C3-Web_Frontend_Internals" {
+            include *
+            description "Component view showing the UI modules and OpenAPI client."
+        }
+
+        component portal.deploy "C3-Deployment_Workflow" {
+            include *
+            description "Component view showing how CI/CD is managed using GitHub Actions and Terraform."
+        }
+
+        styles {
+            element "Person" {
+                shape person
+                background #08427b
+                color #ffffff
+            }
+
+            element "Software System" {
+                background #1168bd
+                color #ffffff
+            }
+
+            element "Container" {
+                background #438dd5
+                color #ffffff
+            }
+
+            element "Component" {
+                background #85bbf0
+                color #000000
+            }
+
+            element "Existing System" {
+                background #999999
+            }
+
+            element "Group:K8S cluster" {
+                color #d86613
+                icon https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-elastic-kubernetes-service.png
+            }
+        }
+    }
+}
+```
+
+## Workflow {data-menu-title="Workflow (iii)"}
+
+::: {.nonincremental}
+3. Apply styles
+:::
+```{.python code-line-numbers="111,112,113,114|126|127,128,129,130,131|133,134,135,136|138,139,140,141"}
+workspace "ARC Services Portal" "Models the architecture of a research services web portal" {
+
+    !identifiers hierarchical
+
+    model {
+
+        properties {
+            "structurizr.groupSeparator" "/"
+        }
+
+        user = person "Researcher" "Uses the platform to manage their research profile and data."
+        admin = person "Admin" "Portal user with elevated permissions to edit data or review submissions."
+
+        entra = softwareSystem "Microsoft Entra" "Identity provider (SSO)" "Existing System"
+        tre = softwareSystem "TRE" "Secure processing environment for sensitive research data" "Existing System"
+        ghcr = softwareSystem "GitHub Container Registry" "Stores container images" "Existing System"
+        uclSystem = softwareSystem "..." "Other UCL consumer of portal data" "Existing System"
+
+        portal = softwareSystem "ARC Services Portal" "Enables management of Studies, Projects, user training and information governance" {
+
+            group "K8S cluster" {
+
+                api = container "API" "API backend with /web/api and /tre/api (and other) endpoints" "Go" {
+
+                    group "Shared Services" {
+                        projectService = component "Project Service" "Handles project workflows" "Go"
+                        userService = component "User Service" "Handles user workflows" "Go"
+                        otherService = component "..." "Other backend services" "Go"
+                    }
+
+                    group "Web API" {
+                        webhttpHandlers = component "HTTP Handlers for web frontend" "Handles REST endpoints" "Go"
+                        webhttpHandlers -> userService "Calls"
+                        webhttpHandlers -> projectService "Calls"
+                        webhttpHandlers -> otherService "Calls"
+                    }
+
+                    group "TRE API" {
+                        trehttpHandlers = component "HTTP Handlers for UCL TREs" "Handles REST endpoints" "Go"
+                        trehttpHandlers -> userService "Calls"
+                        trehttpHandlers -> projectService "Calls"
+                        trehttpHandlers -> otherService "Calls"
+                    }
+
+                    group "Other API" {
+                        otherhttpHandlers = component "HTTP Handlers for other UCL systems" "Handles REST endpoints" "Go"
+                        otherhttpHandlers -> otherService "Calls"
+                    }
+                }
+
+                webFrontend = container "Web Frontend" "User-facing web app" "React, TypeScript" {
+                    pages = component "Pages" "UCL Design System-styled pages for profile, studies, projects" "React"
+                    apiClient = component "API Client" "Generated from OpenAPI spec" "TypeScript"
+
+                    pages -> apiClient "Calls"
+                }
+
+                oauth2Proxy = container "OAuth2 Proxy" "Proxy providing OAuth2 authentication" "quay.io/oauth2-proxy/oauth2-proxy"
+
+                nginx = container "Reverse Proxy" "Routes requests to frontend and backend" "nginx"
+
+                postgres = container "Database" "Stores user, project, portal etc. data" "PostgreSQL"
+
+                api.projectService -> postgres "Reads/writes data"
+                api.userService -> postgres "Reads/writes data"
+                api.otherService -> postgres "Read/writes data"
+                nginx -> api.trehttpHandlers "Proxies /tre/api requests"
+                nginx -> api.otherhttpHandlers "Proxies other api requests"
+                nginx -> webFrontend.pages "Serves"
+                webFrontend.apiClient -> oauth2Proxy "Forwards /web/api requests for authentication"
+                oauth2Proxy -> api.webhttpHandlers "Forwards authenticated /web/api requests to backend"
+
+            }
+
+            deploy = container "CI/CD Pipeline" "Builds and deploys infrastructure and app" "GitHub Actions + Terraform" {
+
+                group "Portal App Repository" {
+                    gha_portal = component "GitHub Actions (Portal Repo)" "Builds & pushes container images" "GitHub Actions"
+                }
+
+                group "Infrastructure Repository" {
+                    gha_infra = component "GitHub Actions (Infra Repo)" "Applies Terraform in AWS" "GitHub Actions"
+                    tf = component "Terraform Code" "Defines and provisions cloud infra" "Terraform"
+                    gha_infra -> tf "Runs"
+                }
+            }
+
+            portal.deploy.tf -> ghcr "Pulls images for deployment"
+            portal.deploy.gha_portal -> ghcr "Pushes container images"
+        }
+
+        user -> portal.webFrontend.pages "Accesses via browser"
+        admin -> portal.webFrontend.pages "Administers via browser"
+        portal.oauth2Proxy -> entra "Authenticates requests against" "SSO"
+        tre -> portal.nginx "Accesses /tre/api for data retrieval" "REST/JSON"
+        uclSystem -> portal.nginx "Accesses api for data retrieval" "REST/JSON"
+    }
+
+    views {
+
+        systemContext portal "C1-Portal_Context" {
+            include *
+            description "Context diagram showing how the Research Platform fits within the broader environment."
+        }
+
+        container portal "C2-Portal_Containers" {
+            include *
+            description "Container view showing major services running in Kubernetes, including API, frontend, proxy, and DB."
+        }
+
+        component portal.api "C3-Web_API_Internals" {
+            include *
+            description "Component view showing key service components inside the API backend."
+        }
+
+        component portal.webFrontend "C3-Web_Frontend_Internals" {
+            include *
+            description "Component view showing the UI modules and OpenAPI client."
+        }
+
+        component portal.deploy "C3-Deployment_Workflow" {
+            include *
+            description "Component view showing how CI/CD is managed using GitHub Actions and Terraform."
+        }
+
+        styles {
+            element "Person" {
+                shape person
+                background #08427b
+                color #ffffff
+            }
+
+            element "Software System" {
+                background #1168bd
+                color #ffffff
+            }
+
+            element "Container" {
+                background #438dd5
+                color #ffffff
+            }
+
+            element "Component" {
+                background #85bbf0
+                color #000000
+            }
+
+            element "Existing System" {
+                background #999999
+            }
+
+            element "Group:K8S cluster" {
+                color #d86613
+                icon https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-elastic-kubernetes-service.png
+            }
+        }
+    }
+}
+```
+## Workflow {data-menu-title="Workflow (iv)"}
+
+::: {.nonincremental}
+4. Generate and export images
+:::
+::: {.fragment .fade-left}
+
+```{.bash}
+docker pull structurizr/lite
+docker run -it --rm -p 8080:8080 -v PATH:/usr/local/structurizr structurizr/lite
+```
+:::
+
 # CALM
 
-## What is CALM
+## What is CALM?
 
 The Common Architecture Language Model
+
+[![](figures/finos-calm.png)](https://calm.finos.org/)
+
+::: footer
+https://calm.finos.org/
+:::
+
+## How does CALM fit in?
+
+- It does not replace the C4 model, it complements it.
+
+## C4 Comparison
+
+:::: {.columns}
+
+::: {.column .fragment .fade-left}
+`C4 Model`
+
+- A set of hierarchical abstractions - software systems, containers, components, and code.
+- A set of hierarchical diagrams - system context, containers, components, and code.
+- Notation independent.
+- Tooling independent.
+:::
+
+::: {.column .fragment .fade-left}
+`CALM`
+
+- A JSON Meta Schema to define your architecture
+- A CLI for generating, validating, docifying architectures
+- A UI for visualising architectures
+- i.e. provides `notation` rules and `tools` 
+:::
+
+::::
+
+## JSON Schemas
+
