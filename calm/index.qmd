@@ -10,19 +10,32 @@ title: "CALM:<br> Architecture-as-Code"
 
 ## What?
 
-- Modelling architectures in code
-- JSON, DSLs 
-- Incrementally
+- Modelling architecture in code (e.g. JSON, YAML, DSLs)
+- Generate diagrams from models instead of manually drawing them
+- Store architecture close to source code
 
-## Why
+## Why?
 
-- Cos
-- The
-- Benefits
+::: {.fragment}
+Alleged benefits:
+:::
+
+- Machine-readable architecture models enable automated validation & compliance checks
+- Architecture can be version controlled alongside source code
+- Developers and architects work from the same source of truth
+- A single model can generate multiple outputs (diagrams, documentation, reports)
+- Easier to keep architecture up to date as the system changes
+
+## Before we test those claims...
+::: {.fragment}
+::: {.r-fit-text}
+Cast your minds back
+:::
+:::
 
 # C4 Model
 
-## Cast your minds back {data-menu-title="Recap"}
+## Recap
 
 ![](figures/c4-static.png){.absolute bottom=2 width="1050" height="580"}
 
@@ -41,7 +54,7 @@ title: "CALM:<br> Architecture-as-Code"
 
 > The C4 model was created as a way to help software development teams describe and communicate software architecture, both during up-front design sessions and when retrospectively documenting an existing codebase.
 
-## Rationale 
+## Rationale {data-menu-title="Rationale (i)"}
 
 ::: {.r-hstack}
 ::: {.r-stack}
@@ -56,9 +69,7 @@ title: "CALM:<br> Architecture-as-Code"
 :::
 
 
-## {data-menu-title="Helps Avoid"}
-
-Common pitfalls:
+## Rationale {data-menu-title="Rationale (ii)"}
 
 - Inconsistent notation (colour coding, shapes, line styles, etc.)
 - Ambiguous naming
@@ -66,7 +77,7 @@ Common pitfalls:
 - Generic terminology
 - Missing technology choices
 - Mixed abstractions
-- **Not good at communicating architecture**
+- `Not good for communicating architecture`
 
 ## Workflow {data-menu-title="Workflow (i)"} 
 
@@ -74,7 +85,7 @@ Common pitfalls:
 
 ::: {.fragment .fade-left}
 
-```{.python code-line-numbers="5|11,12|14,15,16,17|19|23|26,27,28|32|33,34,35,40,41,42|25,31,38"}
+```{.python code-line-numbers="|5|11,12|14,15,16,17|19|23|26,27,28|32|33,34,35,40,41,42|25,31,38"}
 workspace "ARC Services Portal" "Models the architecture of a research services web portal" {
 
     !identifiers hierarchical
@@ -241,7 +252,7 @@ workspace "ARC Services Portal" "Models the architecture of a research services 
 ::: {.nonincremental}
 2. Create views
 :::
-```{.python code-line-numbers="25,31,38|99|101,102,103,104|111,112,113,114"}
+```{.python code-line-numbers="|25,31,38|99|101,102,103,104|106,107,108,109|111,112,113,114"}
 workspace "ARC Services Portal" "Models the architecture of a research services web portal" {
 
     !identifiers hierarchical
@@ -407,7 +418,7 @@ workspace "ARC Services Portal" "Models the architecture of a research services 
 ::: {.nonincremental}
 3. Apply styles
 :::
-```{.python code-line-numbers="111,112,113,114|126|127,128,129,130,131|133,134,135,136|138,139,140,141"}
+```{.python code-line-numbers="|111,112,113,114|126|127,128,129,130,131|133,134,135,136|138,139,140,141"}
 workspace "ARC Services Portal" "Models the architecture of a research services web portal" {
 
     !identifiers hierarchical
@@ -574,11 +585,15 @@ workspace "ARC Services Portal" "Models the architecture of a research services 
 :::
 ::: {.fragment .fade-left}
 
-```{.bash}
+```{.bash code-line-numbers="true"}
 docker pull structurizr/lite
 docker run -it --rm -p 8080:8080 -v PATH:/usr/local/structurizr structurizr/lite
 ```
 :::
+
+## ARC Services Portal {data-menu-title="Generated C4 diagram"}
+
+![](figures/C2-Portal_Containers.png){.absolute bottom=2 left=68 width="914" height="600"}
 
 # CALM
 
@@ -594,7 +609,7 @@ https://calm.finos.org/
 
 ## How does CALM fit in?
 
-- It does not replace the C4 model, it complements it.
+- It does not replace the C4 model, it complements it
 
 ## C4 Comparison
 
@@ -604,9 +619,9 @@ https://calm.finos.org/
 `C4 Model`
 
 - A set of hierarchical abstractions - software systems, containers, components, and code.
-- A set of hierarchical diagrams - system context, containers, components, and code.
-- Notation independent.
-- Tooling independent.
+- Diagrams - system context, containers, components (and code)
+- Notation independent
+- Tooling independent
 :::
 
 ::: {.column .fragment .fade-left}
@@ -615,10 +630,367 @@ https://calm.finos.org/
 - A JSON Meta Schema to define your architecture
 - A CLI for generating, validating, docifying architectures
 - A UI for visualising architectures
-- i.e. provides `notation` rules and `tools` 
+- Provides the `notation` and `tooling` C4 is agnostic about
 :::
 
 ::::
 
 ## JSON Schemas
+
+::: {.fragment .fade-left}
+... are gross
+:::
+
+::: {.fragment .fade-left}
+```{.json code-line-numbers=|3,4|7|13|19|22|25|31|22|22,19}
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://calm.finos.org/release/1.0/meta/core.json",
+  "title": "Common Architecture Language Model (CALM) Vocab",
+  "type" : "object",
+  "properties": {
+    "nodes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/defs/node"
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "$ref": "#/defs/relationship"
+      }
+    },
+    "metadata": {
+      "$ref": "#/defs/metadata"
+    },
+    "controls": {
+      "$ref": "control.json#/defs/controls"
+    },
+    "flows": {
+      "type": "array",
+      "items": {
+        "$ref": "flow.json#/defs/flow"
+      }
+    },
+    "adrs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "External links to ADRs (Architecture Decision Records) or similar documents that provide context or decisions related to the architecture. These can be URLs or references to internal documentation."
+    },
+    "additionalProperties": false
+  },
+  "defs": {
+    "node": {
+      "type": "object",
+      "properties": {
+        "unique-id": {
+          "type": "string"
+        },
+        "node-type": {
+          "$ref": "#/defs/node-type-definition"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "details": {
+          "type": "object",
+          "properties": {
+            "detailed-architecture": {
+              "type": "string"
+            },
+            "required-pattern": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "interfaces": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              { "$ref": "interface.json#/defs/interface-definition" },
+              { "$ref": "interface.json#/defs/interface-type" }
+            ]
+          }
+        },
+        "controls": {
+          "$ref": "control.json#/defs/controls"
+        },
+        "metadata": {
+          "$ref": "#/defs/metadata"
+        }
+      },
+      "required": [
+        "unique-id",
+        "node-type",
+        "name",
+        "description"
+      ],
+      "additionalProperties": true
+    },
+    "relationship": {
+      "type": "object",
+      "properties": {
+        "unique-id": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "relationship-type": {
+          "type": "object",
+          "properties": {
+            "interacts": {
+              "$ref": "#/defs/interacts-type"
+            },
+            "connects": {
+              "$ref": "#/defs/connects-type"
+            },
+            "deployed-in": {
+              "$ref": "#/defs/deployed-in-type"
+            },
+            "composed-of": {
+              "$ref": "#/defs/composed-of-type"
+            },
+            "options": {
+              "$ref": "#/defs/option-type"
+            }
+          },
+          "oneOf": [
+            {
+              "required": [
+                "deployed-in"
+              ]
+            },
+            {
+              "required": [
+                "composed-of"
+              ]
+            },
+            {
+              "required": [
+                "interacts"
+              ]
+            },
+            {
+              "required": [
+                "connects"
+              ]
+            },
+            {
+              "required": [
+                "options"
+              ]
+            }
+          ]
+        },
+        "protocol": {
+          "$ref": "#/defs/protocol"
+        },
+        "metadata": {
+          "$ref": "#/defs/metadata"
+        },
+        "controls": {
+          "$ref": "control.json#/defs/controls"
+        }
+      },
+      "required": [
+        "unique-id",
+        "relationship-type"
+      ],
+      "additionalProperties": true
+    },
+    "protocol": {
+      "enum": [
+        "HTTP",
+        "HTTPS",
+        "FTP",
+        "SFTP",
+        "JDBC",
+        "WebSocket",
+        "SocketIO",
+        "LDAP",
+        "AMQP",
+        "TLS",
+        "mTLS",
+        "TCP"
+      ]
+    },
+    "node-type-definition": {
+      "anyOf": [
+        {
+          "enum": [
+            "actor",
+            "ecosystem",
+            "system",
+            "service",
+            "database",
+            "network",
+            "ldap",
+            "webclient",
+            "data-asset"
+          ]
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "interacts-type": {
+      "type": "object",
+      "properties": {
+        "actor": {
+          "type": "string"
+        },
+        "nodes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "actor",
+        "nodes"
+      ]
+    },
+    "connects-type": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "$ref": "interface.json#/defs/node-interface"
+        },
+        "destination": {
+          "$ref": "interface.json#/defs/node-interface"
+        }
+      },
+      "required": [
+        "source",
+        "destination"
+      ]
+    },
+    "deployed-in-type": {
+      "type": "object",
+      "properties": {
+        "container": {
+          "type": "string"
+        },
+        "nodes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "container",
+        "nodes"
+      ]
+    },
+    "composed-of-type": {
+      "type": "object",
+      "properties": {
+        "container": {
+          "type": "string"
+        },
+        "nodes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "container",
+        "nodes"
+      ]
+    },
+    "option-type": {
+      "type": "array",
+      "items": {
+        "$ref": "#/defs/decision"
+      }
+    },
+    "decision": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "relationships": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "controls": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "description",
+        "nodes",
+        "relationships"
+      ]
+    },
+    "metadata": {
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": true
+        }
+      ]
+    }
+  }
+}
+```
+:::
+
+## CALM's superpower
+
+<span class="fragment" data-fragment-index="1">Patterns!</span> <span class="fragment" data-fragment-index="2">Through the use of the CALM CLI:</span>
+
+::: {.fragment .fade-left}
+```{.bash code-line-numbers=|11}
+Usage: calm [options] [command]
+
+A set of tools for interacting with the Common Architecture Language Model (CALM)
+
+Options:
+  -V, --version       output the version number
+  -h, --help          display help for command
+
+Commands:
+  generate [options]  Generate an architecture from a CALM pattern file.
+  validate [options]  Validate that an architecture conforms to a given CALM pattern.
+  docify [options]    Generate a documentation website off your CALM model
+  help [command]      display help for command
+```
+:::
+
+## First Create a Pattern
 
