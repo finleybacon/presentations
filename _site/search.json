@@ -222,5 +222,12 @@
     "title": "CALM: Architecture-as-Code",
     "section": "CALM’s superpower",
     "text": "CALM’s superpower\nPatterns! Through the use of the CALM CLI:\n\nUsage: calm [options] [command]\n\nA set of tools for interacting with the Common Architecture Language Model (CALM)\n\nOptions:\n  -V, --version       output the version number\n  -h, --help          display help for command\n\nCommands:\n  generate [options]  Generate an architecture from a CALM pattern file.\n  validate [options]  Validate that an architecture conforms to a given CALM pattern.\n  docify [options]    Generate a documentation website off your CALM model\n  help [command]      display help for command"
+  },
+  {
+    "objectID": "calm/index.html#first-create-a-pattern",
+    "href": "calm/index.html#first-create-a-pattern",
+    "title": "CALM: Architecture-as-Code",
+    "section": "First Create a Pattern",
+    "text": "First Create a Pattern"
   }
 ]
