@@ -1,0 +1,171 @@
+```{.json code-line-numbers=|3|14,15,16|32|41|50|59|65,66,67|73|121|137|153|168}
+{
+  "$schema": "https://calm.finos.org/release/1.0/meta/calm.json",
+  "title": "Consumer Pattern 3",
+  "type": "object",
+  "$defs": {
+    "node-base": {
+      "$ref": "https://calm.finos.org/release/1.0/meta/core.json#/defs/node"
+    },
+    "relationship-base": {
+      "$ref": "https://calm.finos.org/release/1.0/meta/core.json#/defs/relationship"
+    }
+  },
+  "properties": {
+    "nodes": {
+      "type": "array",
+      "minItems": 5,
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/node-base",
+          "properties": {
+            "description": { "const": "Molecule that triggers a Scheduled Event" },
+            "node-type": { "const": "system" },
+            "name": { "const": "Trigger" },
+            "unique-id": { "const": "trigger" }
+          }
+        },
+        {
+          "$ref": "#/$defs/node-base",
+          "properties": {
+            "description": { "const": "Molecule that sends request to the Enterprise API when it is triggered" },
+            "node-type": { "const": "system" },
+            "name": { "const": "'Fetch from System' Connector" },
+            "unique-id": { "const": "fetch-from-system-connector" }
+          }
+        },
+        {
+          "$ref": "#/$defs/node-base",
+          "properties": {
+            "description": { "const": "Molecule that converts payload to System Data Model" },
+            "node-type": { "const": "system" },
+            "name": { "const": "Processing" },
+            "unique-id": { "const": "processing" }
+          }
+        },
+        {
+          "$ref": "#/$defs/node-base",
+          "properties": {
+            "description": { "const": "Molecule that initiates connection to System and sends payload over it" },
+            "node-type": { "const": "system" },
+            "name": { "const": "'Send to System' Connector" },
+            "unique-id": { "const": "send-to-system-connector" }
+          }
+        },
+        {
+          "$ref": "#/$defs/node-base",
+          "properties": {
+            "description": { "const": "Target System" },
+            "node-type": { "const": "system" },
+            "name": { "const": "Target System" },
+            "unique-id": { "const": "target-system" }
+          }
+        }
+      ]
+    },
+    "relationships": {
+      "type": "array",
+      "minItems": 4,
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/relationship-base",
+          "properties": {
+            "unique-id": { "const": "event-trigger" },
+            "description": { "const": "Scheduled event triggers API request" },
+            "relationship-type": {
+              "const": {
+                "connects": {
+                  "source": { "node": "trigger" },
+                  "destination": { "node": "fetch-from-system-connector" }
+                }
+              }
+            },
+            "protocol": { "const": "HTTPS" },
+            "authentication": { "const": "OAuth2" },
+            "controls": {
+              "$ref": "https://calm.finos.org/release/1.0/meta/control.json#/defs/controls",
+              "properties": {
+                "encryption": {
+                  "type": "object",
+                  "properties": {
+                    "description": {
+                      "const": "Encryption controls for data in transit"
+                    },
+                    "requirements": {
+                      "type": "array",
+                      "minItems": 1,
+                      "prefixItems": [
+                        {
+                          "$ref": "https://calm.finos.org/release/1.0/meta/control.json#/defs/control-detail",
+                          "properties": {
+                            "requirement-url": {
+                              "const": "/home/fbacon/CALM/demo/requirements/encryption-in-transit-requirement.json"
+                            },
+                            "config-url": {
+                              "const": "/home/fbacon/CALM/demo/configs/encryption-in-transit-config.json"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": ["controls"]
+        },
+        {
+          "$ref": "#/$defs/relationship-base",
+          "properties": {
+            "unique-id": { "const": "publish-response" },
+            "description": { "const": "Publishes response payload for processing" },
+            "relationship-type": {
+              "const": {
+                "connects": {
+                  "source": { "node": "fetch-from-system-connector" },
+                  "destination": { "node": "processing" }
+                }
+              }
+            },
+            "protocol": { "const": "HTTPS" }
+          }
+        },
+        {
+          "$ref": "#/$defs/relationship-base",
+          "properties": {
+            "unique-id": { "const": "processing complete" },
+            "description": { "const": "Publishes transformed payload to 'Send to System' Connector" },
+            "relationship-type": {
+              "const": {
+                "connects": {
+                  "source": { "node": "processing" },
+                  "destination": { "node": "send-to-system-connector" }
+                }
+              }
+            },
+            "protocol": { "const": "HTTPS" }
+          }
+        },
+        {
+          "$ref": "#/$defs/relationship-base",
+          "properties": {
+            "unique-id": { "const": "payload-to-system" },
+            "description": { "const": "Initiates connection to System and sends payload over it" },
+            "relationship-type": {
+              "const": {
+                "connects": {
+                  "source": { "node": "send-to-system-connector" },
+                  "destination": { "node": "target-system" }
+                }
+              }
+            },
+            "protocol": { "const": "HTTPS" }
+          }
+        }
+      ]
+    }
+  },
+  "required": ["nodes", "relationships"]
+}
+```

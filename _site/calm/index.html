@@ -1189,8 +1189,400 @@ Finley Bacon
 <span id="cb6-13"><a></a>  <span class="bu">help</span> <span class="pp">[</span><span class="ss">command</span><span class="pp">]</span>      display help for command</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="first-create-a-pattern" class="slide level2">
-<h2>First Create a Pattern</h2>
+<section id="patterns-in-calm" class="slide level2">
+<h2>Patterns in CALM</h2>
+<div class="fragment fade-left">
+<p>In CALM, patterns are custom JSON schemas which adhere to the core CALM Meta Schema</p>
+</div>
+<div class="fragment fade-left">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" data-code-line-numbers="|3|14,15,16|32|41|50|59|65,66,67|73|121|137|153|168"><pre class="sourceCode numberSource json number-lines code-with-copy"><code class="sourceCode json"><span id="cb7-1"><a></a><span class="fu">{</span></span>
+<span id="cb7-2"><a></a>  <span class="dt">"$schema"</span><span class="fu">:</span> <span class="st">"https://calm.finos.org/release/1.0/meta/calm.json"</span><span class="fu">,</span></span>
+<span id="cb7-3"><a></a>  <span class="dt">"title"</span><span class="fu">:</span> <span class="st">"Consumer Pattern 3"</span><span class="fu">,</span></span>
+<span id="cb7-4"><a></a>  <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"object"</span><span class="fu">,</span></span>
+<span id="cb7-5"><a></a>  <span class="dt">"$defs"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-6"><a></a>    <span class="dt">"node-base"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-7"><a></a>      <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"https://calm.finos.org/release/1.0/meta/core.json#/defs/node"</span></span>
+<span id="cb7-8"><a></a>    <span class="fu">},</span></span>
+<span id="cb7-9"><a></a>    <span class="dt">"relationship-base"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-10"><a></a>      <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"https://calm.finos.org/release/1.0/meta/core.json#/defs/relationship"</span></span>
+<span id="cb7-11"><a></a>    <span class="fu">}</span></span>
+<span id="cb7-12"><a></a>  <span class="fu">},</span></span>
+<span id="cb7-13"><a></a>  <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-14"><a></a>    <span class="dt">"nodes"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-15"><a></a>      <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"array"</span><span class="fu">,</span></span>
+<span id="cb7-16"><a></a>      <span class="dt">"minItems"</span><span class="fu">:</span> <span class="dv">5</span><span class="fu">,</span></span>
+<span id="cb7-17"><a></a>      <span class="dt">"prefixItems"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb7-18"><a></a>        <span class="fu">{</span></span>
+<span id="cb7-19"><a></a>          <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"#/$defs/node-base"</span><span class="fu">,</span></span>
+<span id="cb7-20"><a></a>          <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-21"><a></a>            <span class="dt">"description"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Molecule that triggers a Scheduled Event"</span> <span class="fu">},</span></span>
+<span id="cb7-22"><a></a>            <span class="dt">"node-type"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"system"</span> <span class="fu">},</span></span>
+<span id="cb7-23"><a></a>            <span class="dt">"name"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Trigger"</span> <span class="fu">},</span></span>
+<span id="cb7-24"><a></a>            <span class="dt">"unique-id"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"trigger"</span> <span class="fu">}</span></span>
+<span id="cb7-25"><a></a>          <span class="fu">}</span></span>
+<span id="cb7-26"><a></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb7-27"><a></a>        <span class="fu">{</span></span>
+<span id="cb7-28"><a></a>          <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"#/$defs/node-base"</span><span class="fu">,</span></span>
+<span id="cb7-29"><a></a>          <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-30"><a></a>            <span class="dt">"description"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Molecule that sends request to the Enterprise API when it is triggered"</span> <span class="fu">},</span></span>
+<span id="cb7-31"><a></a>            <span class="dt">"node-type"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"system"</span> <span class="fu">},</span></span>
+<span id="cb7-32"><a></a>            <span class="dt">"name"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"'Fetch from System' Connector"</span> <span class="fu">},</span></span>
+<span id="cb7-33"><a></a>            <span class="dt">"unique-id"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"fetch-from-system-connector"</span> <span class="fu">}</span></span>
+<span id="cb7-34"><a></a>          <span class="fu">}</span></span>
+<span id="cb7-35"><a></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb7-36"><a></a>        <span class="fu">{</span></span>
+<span id="cb7-37"><a></a>          <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"#/$defs/node-base"</span><span class="fu">,</span></span>
+<span id="cb7-38"><a></a>          <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-39"><a></a>            <span class="dt">"description"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Molecule that converts payload to System Data Model"</span> <span class="fu">},</span></span>
+<span id="cb7-40"><a></a>            <span class="dt">"node-type"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"system"</span> <span class="fu">},</span></span>
+<span id="cb7-41"><a></a>            <span class="dt">"name"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Processing"</span> <span class="fu">},</span></span>
+<span id="cb7-42"><a></a>            <span class="dt">"unique-id"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"processing"</span> <span class="fu">}</span></span>
+<span id="cb7-43"><a></a>          <span class="fu">}</span></span>
+<span id="cb7-44"><a></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb7-45"><a></a>        <span class="fu">{</span></span>
+<span id="cb7-46"><a></a>          <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"#/$defs/node-base"</span><span class="fu">,</span></span>
+<span id="cb7-47"><a></a>          <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-48"><a></a>            <span class="dt">"description"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Molecule that initiates connection to System and sends payload over it"</span> <span class="fu">},</span></span>
+<span id="cb7-49"><a></a>            <span class="dt">"node-type"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"system"</span> <span class="fu">},</span></span>
+<span id="cb7-50"><a></a>            <span class="dt">"name"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"'Send to System' Connector"</span> <span class="fu">},</span></span>
+<span id="cb7-51"><a></a>            <span class="dt">"unique-id"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"send-to-system-connector"</span> <span class="fu">}</span></span>
+<span id="cb7-52"><a></a>          <span class="fu">}</span></span>
+<span id="cb7-53"><a></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb7-54"><a></a>        <span class="fu">{</span></span>
+<span id="cb7-55"><a></a>          <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"#/$defs/node-base"</span><span class="fu">,</span></span>
+<span id="cb7-56"><a></a>          <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-57"><a></a>            <span class="dt">"description"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Target System"</span> <span class="fu">},</span></span>
+<span id="cb7-58"><a></a>            <span class="dt">"node-type"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"system"</span> <span class="fu">},</span></span>
+<span id="cb7-59"><a></a>            <span class="dt">"name"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Target System"</span> <span class="fu">},</span></span>
+<span id="cb7-60"><a></a>            <span class="dt">"unique-id"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"target-system"</span> <span class="fu">}</span></span>
+<span id="cb7-61"><a></a>          <span class="fu">}</span></span>
+<span id="cb7-62"><a></a>        <span class="fu">}</span></span>
+<span id="cb7-63"><a></a>      <span class="ot">]</span></span>
+<span id="cb7-64"><a></a>    <span class="fu">},</span></span>
+<span id="cb7-65"><a></a>    <span class="dt">"relationships"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-66"><a></a>      <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"array"</span><span class="fu">,</span></span>
+<span id="cb7-67"><a></a>      <span class="dt">"minItems"</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span></span>
+<span id="cb7-68"><a></a>      <span class="dt">"prefixItems"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb7-69"><a></a>        <span class="fu">{</span></span>
+<span id="cb7-70"><a></a>          <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"#/$defs/relationship-base"</span><span class="fu">,</span></span>
+<span id="cb7-71"><a></a>          <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-72"><a></a>            <span class="dt">"unique-id"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"event-trigger"</span> <span class="fu">},</span></span>
+<span id="cb7-73"><a></a>            <span class="dt">"description"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Scheduled event triggers API request"</span> <span class="fu">},</span></span>
+<span id="cb7-74"><a></a>            <span class="dt">"relationship-type"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-75"><a></a>              <span class="dt">"const"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-76"><a></a>                <span class="dt">"connects"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-77"><a></a>                  <span class="dt">"source"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"node"</span><span class="fu">:</span> <span class="st">"trigger"</span> <span class="fu">},</span></span>
+<span id="cb7-78"><a></a>                  <span class="dt">"destination"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"node"</span><span class="fu">:</span> <span class="st">"fetch-from-system-connector"</span> <span class="fu">}</span></span>
+<span id="cb7-79"><a></a>                <span class="fu">}</span></span>
+<span id="cb7-80"><a></a>              <span class="fu">}</span></span>
+<span id="cb7-81"><a></a>            <span class="fu">},</span></span>
+<span id="cb7-82"><a></a>            <span class="dt">"protocol"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"HTTPS"</span> <span class="fu">},</span></span>
+<span id="cb7-83"><a></a>            <span class="dt">"authentication"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"OAuth2"</span> <span class="fu">},</span></span>
+<span id="cb7-84"><a></a>            <span class="dt">"controls"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-85"><a></a>              <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"https://calm.finos.org/release/1.0/meta/control.json#/defs/controls"</span><span class="fu">,</span></span>
+<span id="cb7-86"><a></a>              <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-87"><a></a>                <span class="dt">"encryption"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-88"><a></a>                  <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"object"</span><span class="fu">,</span></span>
+<span id="cb7-89"><a></a>                  <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-90"><a></a>                    <span class="dt">"description"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-91"><a></a>                      <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Encryption controls for data in transit"</span></span>
+<span id="cb7-92"><a></a>                    <span class="fu">},</span></span>
+<span id="cb7-93"><a></a>                    <span class="dt">"requirements"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-94"><a></a>                      <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"array"</span><span class="fu">,</span></span>
+<span id="cb7-95"><a></a>                      <span class="dt">"minItems"</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb7-96"><a></a>                      <span class="dt">"prefixItems"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb7-97"><a></a>                        <span class="fu">{</span></span>
+<span id="cb7-98"><a></a>                          <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"https://calm.finos.org/release/1.0/meta/control.json#/defs/control-detail"</span><span class="fu">,</span></span>
+<span id="cb7-99"><a></a>                          <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-100"><a></a>                            <span class="dt">"requirement-url"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-101"><a></a>                              <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"/home/fbacon/CALM/demo/requirements/encryption-in-transit-requirement.json"</span></span>
+<span id="cb7-102"><a></a>                            <span class="fu">},</span></span>
+<span id="cb7-103"><a></a>                            <span class="dt">"config-url"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-104"><a></a>                              <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"/home/fbacon/CALM/demo/configs/encryption-in-transit-config.json"</span></span>
+<span id="cb7-105"><a></a>                            <span class="fu">}</span></span>
+<span id="cb7-106"><a></a>                          <span class="fu">}</span></span>
+<span id="cb7-107"><a></a>                        <span class="fu">}</span></span>
+<span id="cb7-108"><a></a>                      <span class="ot">]</span></span>
+<span id="cb7-109"><a></a>                    <span class="fu">}</span></span>
+<span id="cb7-110"><a></a>                  <span class="fu">}</span></span>
+<span id="cb7-111"><a></a>                <span class="fu">}</span></span>
+<span id="cb7-112"><a></a>              <span class="fu">}</span></span>
+<span id="cb7-113"><a></a>            <span class="fu">}</span></span>
+<span id="cb7-114"><a></a>          <span class="fu">},</span></span>
+<span id="cb7-115"><a></a>          <span class="dt">"required"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"controls"</span><span class="ot">]</span></span>
+<span id="cb7-116"><a></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb7-117"><a></a>        <span class="fu">{</span></span>
+<span id="cb7-118"><a></a>          <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"#/$defs/relationship-base"</span><span class="fu">,</span></span>
+<span id="cb7-119"><a></a>          <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-120"><a></a>            <span class="dt">"unique-id"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"publish-response"</span> <span class="fu">},</span></span>
+<span id="cb7-121"><a></a>            <span class="dt">"description"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Publishes response payload for processing"</span> <span class="fu">},</span></span>
+<span id="cb7-122"><a></a>            <span class="dt">"relationship-type"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-123"><a></a>              <span class="dt">"const"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-124"><a></a>                <span class="dt">"connects"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-125"><a></a>                  <span class="dt">"source"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"node"</span><span class="fu">:</span> <span class="st">"fetch-from-system-connector"</span> <span class="fu">},</span></span>
+<span id="cb7-126"><a></a>                  <span class="dt">"destination"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"node"</span><span class="fu">:</span> <span class="st">"processing"</span> <span class="fu">}</span></span>
+<span id="cb7-127"><a></a>                <span class="fu">}</span></span>
+<span id="cb7-128"><a></a>              <span class="fu">}</span></span>
+<span id="cb7-129"><a></a>            <span class="fu">},</span></span>
+<span id="cb7-130"><a></a>            <span class="dt">"protocol"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"HTTPS"</span> <span class="fu">}</span></span>
+<span id="cb7-131"><a></a>          <span class="fu">}</span></span>
+<span id="cb7-132"><a></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb7-133"><a></a>        <span class="fu">{</span></span>
+<span id="cb7-134"><a></a>          <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"#/$defs/relationship-base"</span><span class="fu">,</span></span>
+<span id="cb7-135"><a></a>          <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-136"><a></a>            <span class="dt">"unique-id"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"processing complete"</span> <span class="fu">},</span></span>
+<span id="cb7-137"><a></a>            <span class="dt">"description"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Publishes transformed payload to 'Send to System' Connector"</span> <span class="fu">},</span></span>
+<span id="cb7-138"><a></a>            <span class="dt">"relationship-type"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-139"><a></a>              <span class="dt">"const"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-140"><a></a>                <span class="dt">"connects"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-141"><a></a>                  <span class="dt">"source"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"node"</span><span class="fu">:</span> <span class="st">"processing"</span> <span class="fu">},</span></span>
+<span id="cb7-142"><a></a>                  <span class="dt">"destination"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"node"</span><span class="fu">:</span> <span class="st">"send-to-system-connector"</span> <span class="fu">}</span></span>
+<span id="cb7-143"><a></a>                <span class="fu">}</span></span>
+<span id="cb7-144"><a></a>              <span class="fu">}</span></span>
+<span id="cb7-145"><a></a>            <span class="fu">},</span></span>
+<span id="cb7-146"><a></a>            <span class="dt">"protocol"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"HTTPS"</span> <span class="fu">}</span></span>
+<span id="cb7-147"><a></a>          <span class="fu">}</span></span>
+<span id="cb7-148"><a></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb7-149"><a></a>        <span class="fu">{</span></span>
+<span id="cb7-150"><a></a>          <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"#/$defs/relationship-base"</span><span class="fu">,</span></span>
+<span id="cb7-151"><a></a>          <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-152"><a></a>            <span class="dt">"unique-id"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"payload-to-system"</span> <span class="fu">},</span></span>
+<span id="cb7-153"><a></a>            <span class="dt">"description"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Initiates connection to System and sends payload over it"</span> <span class="fu">},</span></span>
+<span id="cb7-154"><a></a>            <span class="dt">"relationship-type"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-155"><a></a>              <span class="dt">"const"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-156"><a></a>                <span class="dt">"connects"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-157"><a></a>                  <span class="dt">"source"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"node"</span><span class="fu">:</span> <span class="st">"send-to-system-connector"</span> <span class="fu">},</span></span>
+<span id="cb7-158"><a></a>                  <span class="dt">"destination"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"node"</span><span class="fu">:</span> <span class="st">"target-system"</span> <span class="fu">}</span></span>
+<span id="cb7-159"><a></a>                <span class="fu">}</span></span>
+<span id="cb7-160"><a></a>              <span class="fu">}</span></span>
+<span id="cb7-161"><a></a>            <span class="fu">},</span></span>
+<span id="cb7-162"><a></a>            <span class="dt">"protocol"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"HTTPS"</span> <span class="fu">}</span></span>
+<span id="cb7-163"><a></a>          <span class="fu">}</span></span>
+<span id="cb7-164"><a></a>        <span class="fu">}</span></span>
+<span id="cb7-165"><a></a>      <span class="ot">]</span></span>
+<span id="cb7-166"><a></a>    <span class="fu">}</span></span>
+<span id="cb7-167"><a></a>  <span class="fu">},</span></span>
+<span id="cb7-168"><a></a>  <span class="dt">"required"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"nodes"</span><span class="ot">,</span> <span class="st">"relationships"</span><span class="ot">]</span></span>
+<span id="cb7-169"><a></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="controls-in-patterns" class="slide level2">
+<h2>Controls in Patterns</h2>
+<div class="fragment fade-left">
+<p>You can include a control <code>requirement-url</code> and a control <code>config-url</code></p>
+</div>
+<div class="fragment fade-left">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" data-code-line-numbers="|71,72,73,74,82,83,84|84,87|115|99,100,101,102,103,104,105"><pre class="sourceCode numberSource json number-lines code-with-copy"><code class="sourceCode json"><span id="cb8-1"><a></a><span class="fu">{</span></span>
+<span id="cb8-2"><a></a>  <span class="dt">"$schema"</span><span class="fu">:</span> <span class="st">"https://calm.finos.org/release/1.0/meta/calm.json"</span><span class="fu">,</span></span>
+<span id="cb8-3"><a></a>  <span class="dt">"title"</span><span class="fu">:</span> <span class="st">"Consumer Pattern 3"</span><span class="fu">,</span></span>
+<span id="cb8-4"><a></a>  <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"object"</span><span class="fu">,</span></span>
+<span id="cb8-5"><a></a>  <span class="dt">"$defs"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-6"><a></a>    <span class="dt">"node-base"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-7"><a></a>      <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"https://calm.finos.org/release/1.0/meta/core.json#/defs/node"</span></span>
+<span id="cb8-8"><a></a>    <span class="fu">},</span></span>
+<span id="cb8-9"><a></a>    <span class="dt">"relationship-base"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-10"><a></a>      <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"https://calm.finos.org/release/1.0/meta/core.json#/defs/relationship"</span></span>
+<span id="cb8-11"><a></a>    <span class="fu">}</span></span>
+<span id="cb8-12"><a></a>  <span class="fu">},</span></span>
+<span id="cb8-13"><a></a>  <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-14"><a></a>    <span class="dt">"nodes"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-15"><a></a>      <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"array"</span><span class="fu">,</span></span>
+<span id="cb8-16"><a></a>      <span class="dt">"minItems"</span><span class="fu">:</span> <span class="dv">5</span><span class="fu">,</span></span>
+<span id="cb8-17"><a></a>      <span class="dt">"prefixItems"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb8-18"><a></a>        <span class="fu">{</span></span>
+<span id="cb8-19"><a></a>          <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"#/$defs/node-base"</span><span class="fu">,</span></span>
+<span id="cb8-20"><a></a>          <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-21"><a></a>            <span class="dt">"description"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Molecule that triggers a Scheduled Event"</span> <span class="fu">},</span></span>
+<span id="cb8-22"><a></a>            <span class="dt">"node-type"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"system"</span> <span class="fu">},</span></span>
+<span id="cb8-23"><a></a>            <span class="dt">"name"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Trigger"</span> <span class="fu">},</span></span>
+<span id="cb8-24"><a></a>            <span class="dt">"unique-id"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"trigger"</span> <span class="fu">}</span></span>
+<span id="cb8-25"><a></a>          <span class="fu">}</span></span>
+<span id="cb8-26"><a></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb8-27"><a></a>        <span class="fu">{</span></span>
+<span id="cb8-28"><a></a>          <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"#/$defs/node-base"</span><span class="fu">,</span></span>
+<span id="cb8-29"><a></a>          <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-30"><a></a>            <span class="dt">"description"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Molecule that sends request to the Enterprise API when it is triggered"</span> <span class="fu">},</span></span>
+<span id="cb8-31"><a></a>            <span class="dt">"node-type"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"system"</span> <span class="fu">},</span></span>
+<span id="cb8-32"><a></a>            <span class="dt">"name"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"'Fetch from System' Connector"</span> <span class="fu">},</span></span>
+<span id="cb8-33"><a></a>            <span class="dt">"unique-id"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"fetch-from-system-connector"</span> <span class="fu">}</span></span>
+<span id="cb8-34"><a></a>          <span class="fu">}</span></span>
+<span id="cb8-35"><a></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb8-36"><a></a>        <span class="fu">{</span></span>
+<span id="cb8-37"><a></a>          <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"#/$defs/node-base"</span><span class="fu">,</span></span>
+<span id="cb8-38"><a></a>          <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-39"><a></a>            <span class="dt">"description"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Molecule that converts payload to System Data Model"</span> <span class="fu">},</span></span>
+<span id="cb8-40"><a></a>            <span class="dt">"node-type"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"system"</span> <span class="fu">},</span></span>
+<span id="cb8-41"><a></a>            <span class="dt">"name"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Processing"</span> <span class="fu">},</span></span>
+<span id="cb8-42"><a></a>            <span class="dt">"unique-id"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"processing"</span> <span class="fu">}</span></span>
+<span id="cb8-43"><a></a>          <span class="fu">}</span></span>
+<span id="cb8-44"><a></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb8-45"><a></a>        <span class="fu">{</span></span>
+<span id="cb8-46"><a></a>          <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"#/$defs/node-base"</span><span class="fu">,</span></span>
+<span id="cb8-47"><a></a>          <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-48"><a></a>            <span class="dt">"description"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Molecule that initiates connection to System and sends payload over it"</span> <span class="fu">},</span></span>
+<span id="cb8-49"><a></a>            <span class="dt">"node-type"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"system"</span> <span class="fu">},</span></span>
+<span id="cb8-50"><a></a>            <span class="dt">"name"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"'Send to System' Connector"</span> <span class="fu">},</span></span>
+<span id="cb8-51"><a></a>            <span class="dt">"unique-id"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"send-to-system-connector"</span> <span class="fu">}</span></span>
+<span id="cb8-52"><a></a>          <span class="fu">}</span></span>
+<span id="cb8-53"><a></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb8-54"><a></a>        <span class="fu">{</span></span>
+<span id="cb8-55"><a></a>          <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"#/$defs/node-base"</span><span class="fu">,</span></span>
+<span id="cb8-56"><a></a>          <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-57"><a></a>            <span class="dt">"description"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Target System"</span> <span class="fu">},</span></span>
+<span id="cb8-58"><a></a>            <span class="dt">"node-type"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"system"</span> <span class="fu">},</span></span>
+<span id="cb8-59"><a></a>            <span class="dt">"name"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Target System"</span> <span class="fu">},</span></span>
+<span id="cb8-60"><a></a>            <span class="dt">"unique-id"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"target-system"</span> <span class="fu">}</span></span>
+<span id="cb8-61"><a></a>          <span class="fu">}</span></span>
+<span id="cb8-62"><a></a>        <span class="fu">}</span></span>
+<span id="cb8-63"><a></a>      <span class="ot">]</span></span>
+<span id="cb8-64"><a></a>    <span class="fu">},</span></span>
+<span id="cb8-65"><a></a>    <span class="dt">"relationships"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-66"><a></a>      <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"array"</span><span class="fu">,</span></span>
+<span id="cb8-67"><a></a>      <span class="dt">"minItems"</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span></span>
+<span id="cb8-68"><a></a>      <span class="dt">"prefixItems"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb8-69"><a></a>        <span class="fu">{</span></span>
+<span id="cb8-70"><a></a>          <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"#/$defs/relationship-base"</span><span class="fu">,</span></span>
+<span id="cb8-71"><a></a>          <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-72"><a></a>            <span class="dt">"unique-id"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"event-trigger"</span> <span class="fu">},</span></span>
+<span id="cb8-73"><a></a>            <span class="dt">"description"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Scheduled event triggers API request"</span> <span class="fu">},</span></span>
+<span id="cb8-74"><a></a>            <span class="dt">"relationship-type"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-75"><a></a>              <span class="dt">"const"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-76"><a></a>                <span class="dt">"connects"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-77"><a></a>                  <span class="dt">"source"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"node"</span><span class="fu">:</span> <span class="st">"trigger"</span> <span class="fu">},</span></span>
+<span id="cb8-78"><a></a>                  <span class="dt">"destination"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"node"</span><span class="fu">:</span> <span class="st">"fetch-from-system-connector"</span> <span class="fu">}</span></span>
+<span id="cb8-79"><a></a>                <span class="fu">}</span></span>
+<span id="cb8-80"><a></a>              <span class="fu">}</span></span>
+<span id="cb8-81"><a></a>            <span class="fu">},</span></span>
+<span id="cb8-82"><a></a>            <span class="dt">"protocol"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"HTTPS"</span> <span class="fu">},</span></span>
+<span id="cb8-83"><a></a>            <span class="dt">"authentication"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"OAuth2"</span> <span class="fu">},</span></span>
+<span id="cb8-84"><a></a>            <span class="dt">"controls"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-85"><a></a>              <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"https://calm.finos.org/release/1.0/meta/control.json#/defs/controls"</span><span class="fu">,</span></span>
+<span id="cb8-86"><a></a>              <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-87"><a></a>                <span class="dt">"encryption"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-88"><a></a>                  <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"object"</span><span class="fu">,</span></span>
+<span id="cb8-89"><a></a>                  <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-90"><a></a>                    <span class="dt">"description"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-91"><a></a>                      <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Encryption controls for data in transit"</span></span>
+<span id="cb8-92"><a></a>                    <span class="fu">},</span></span>
+<span id="cb8-93"><a></a>                    <span class="dt">"requirements"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-94"><a></a>                      <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"array"</span><span class="fu">,</span></span>
+<span id="cb8-95"><a></a>                      <span class="dt">"minItems"</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb8-96"><a></a>                      <span class="dt">"prefixItems"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb8-97"><a></a>                        <span class="fu">{</span></span>
+<span id="cb8-98"><a></a>                          <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"https://calm.finos.org/release/1.0/meta/control.json#/defs/control-detail"</span><span class="fu">,</span></span>
+<span id="cb8-99"><a></a>                          <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-100"><a></a>                            <span class="dt">"requirement-url"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-101"><a></a>                              <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"/home/fbacon/CALM/demo/requirements/encryption-in-transit-requirement.json"</span></span>
+<span id="cb8-102"><a></a>                            <span class="fu">},</span></span>
+<span id="cb8-103"><a></a>                            <span class="dt">"config-url"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-104"><a></a>                              <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"/home/fbacon/CALM/demo/configs/encryption-in-transit-config.json"</span></span>
+<span id="cb8-105"><a></a>                            <span class="fu">}</span></span>
+<span id="cb8-106"><a></a>                          <span class="fu">}</span></span>
+<span id="cb8-107"><a></a>                        <span class="fu">}</span></span>
+<span id="cb8-108"><a></a>                      <span class="ot">]</span></span>
+<span id="cb8-109"><a></a>                    <span class="fu">}</span></span>
+<span id="cb8-110"><a></a>                  <span class="fu">}</span></span>
+<span id="cb8-111"><a></a>                <span class="fu">}</span></span>
+<span id="cb8-112"><a></a>              <span class="fu">}</span></span>
+<span id="cb8-113"><a></a>            <span class="fu">}</span></span>
+<span id="cb8-114"><a></a>          <span class="fu">},</span></span>
+<span id="cb8-115"><a></a>          <span class="dt">"required"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"controls"</span><span class="ot">]</span></span>
+<span id="cb8-116"><a></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb8-117"><a></a>        <span class="fu">{</span></span>
+<span id="cb8-118"><a></a>          <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"#/$defs/relationship-base"</span><span class="fu">,</span></span>
+<span id="cb8-119"><a></a>          <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-120"><a></a>            <span class="dt">"unique-id"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"publish-response"</span> <span class="fu">},</span></span>
+<span id="cb8-121"><a></a>            <span class="dt">"description"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Publishes response payload for processing"</span> <span class="fu">},</span></span>
+<span id="cb8-122"><a></a>            <span class="dt">"relationship-type"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-123"><a></a>              <span class="dt">"const"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-124"><a></a>                <span class="dt">"connects"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-125"><a></a>                  <span class="dt">"source"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"node"</span><span class="fu">:</span> <span class="st">"fetch-from-system-connector"</span> <span class="fu">},</span></span>
+<span id="cb8-126"><a></a>                  <span class="dt">"destination"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"node"</span><span class="fu">:</span> <span class="st">"processing"</span> <span class="fu">}</span></span>
+<span id="cb8-127"><a></a>                <span class="fu">}</span></span>
+<span id="cb8-128"><a></a>              <span class="fu">}</span></span>
+<span id="cb8-129"><a></a>            <span class="fu">},</span></span>
+<span id="cb8-130"><a></a>            <span class="dt">"protocol"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"HTTPS"</span> <span class="fu">}</span></span>
+<span id="cb8-131"><a></a>          <span class="fu">}</span></span>
+<span id="cb8-132"><a></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb8-133"><a></a>        <span class="fu">{</span></span>
+<span id="cb8-134"><a></a>          <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"#/$defs/relationship-base"</span><span class="fu">,</span></span>
+<span id="cb8-135"><a></a>          <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-136"><a></a>            <span class="dt">"unique-id"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"processing complete"</span> <span class="fu">},</span></span>
+<span id="cb8-137"><a></a>            <span class="dt">"description"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Publishes transformed payload to 'Send to System' Connector"</span> <span class="fu">},</span></span>
+<span id="cb8-138"><a></a>            <span class="dt">"relationship-type"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-139"><a></a>              <span class="dt">"const"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-140"><a></a>                <span class="dt">"connects"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-141"><a></a>                  <span class="dt">"source"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"node"</span><span class="fu">:</span> <span class="st">"processing"</span> <span class="fu">},</span></span>
+<span id="cb8-142"><a></a>                  <span class="dt">"destination"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"node"</span><span class="fu">:</span> <span class="st">"send-to-system-connector"</span> <span class="fu">}</span></span>
+<span id="cb8-143"><a></a>                <span class="fu">}</span></span>
+<span id="cb8-144"><a></a>              <span class="fu">}</span></span>
+<span id="cb8-145"><a></a>            <span class="fu">},</span></span>
+<span id="cb8-146"><a></a>            <span class="dt">"protocol"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"HTTPS"</span> <span class="fu">}</span></span>
+<span id="cb8-147"><a></a>          <span class="fu">}</span></span>
+<span id="cb8-148"><a></a>        <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb8-149"><a></a>        <span class="fu">{</span></span>
+<span id="cb8-150"><a></a>          <span class="dt">"$ref"</span><span class="fu">:</span> <span class="st">"#/$defs/relationship-base"</span><span class="fu">,</span></span>
+<span id="cb8-151"><a></a>          <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-152"><a></a>            <span class="dt">"unique-id"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"payload-to-system"</span> <span class="fu">},</span></span>
+<span id="cb8-153"><a></a>            <span class="dt">"description"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"Initiates connection to System and sends payload over it"</span> <span class="fu">},</span></span>
+<span id="cb8-154"><a></a>            <span class="dt">"relationship-type"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-155"><a></a>              <span class="dt">"const"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-156"><a></a>                <span class="dt">"connects"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-157"><a></a>                  <span class="dt">"source"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"node"</span><span class="fu">:</span> <span class="st">"send-to-system-connector"</span> <span class="fu">},</span></span>
+<span id="cb8-158"><a></a>                  <span class="dt">"destination"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"node"</span><span class="fu">:</span> <span class="st">"target-system"</span> <span class="fu">}</span></span>
+<span id="cb8-159"><a></a>                <span class="fu">}</span></span>
+<span id="cb8-160"><a></a>              <span class="fu">}</span></span>
+<span id="cb8-161"><a></a>            <span class="fu">},</span></span>
+<span id="cb8-162"><a></a>            <span class="dt">"protocol"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"HTTPS"</span> <span class="fu">}</span></span>
+<span id="cb8-163"><a></a>          <span class="fu">}</span></span>
+<span id="cb8-164"><a></a>        <span class="fu">}</span></span>
+<span id="cb8-165"><a></a>      <span class="ot">]</span></span>
+<span id="cb8-166"><a></a>    <span class="fu">}</span></span>
+<span id="cb8-167"><a></a>  <span class="fu">},</span></span>
+<span id="cb8-168"><a></a>  <span class="dt">"required"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"nodes"</span><span class="ot">,</span> <span class="st">"relationships"</span><span class="ot">]</span></span>
+<span id="cb8-169"><a></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="requirement" class="slide level2">
+<h2>Requirement</h2>
+<div class="fragment fade-left">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" data-code-line-numbers="|7-15|17-26"><pre class="sourceCode numberSource json number-lines code-with-copy"><code class="sourceCode json"><span id="cb9-1"><a></a><span class="fu">{</span></span>
+<span id="cb9-2"><a></a>  <span class="dt">"$schema"</span><span class="fu">:</span> <span class="st">"https://json-schema.org/draft/2020-12/schema"</span><span class="fu">,</span></span>
+<span id="cb9-3"><a></a>  <span class="dt">"$id"</span><span class="fu">:</span> <span class="st">"./requirements/encryption-in-transit.json"</span><span class="fu">,</span></span>
+<span id="cb9-4"><a></a>  <span class="dt">"title"</span><span class="fu">:</span> <span class="st">"Encryption in Transit Requirement"</span><span class="fu">,</span></span>
+<span id="cb9-5"><a></a>  <span class="dt">"description"</span><span class="fu">:</span> <span class="st">"Ensures that if HTTPS is used, TLS version is declared and must be &gt;=1.2."</span><span class="fu">,</span></span>
+<span id="cb9-6"><a></a>  <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"object"</span><span class="fu">,</span></span>
+<span id="cb9-7"><a></a>  <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb9-8"><a></a>    <span class="dt">"protocol"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb9-9"><a></a>      <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"string"</span><span class="fu">,</span></span>
+<span id="cb9-10"><a></a>      <span class="dt">"enum"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"HTTP"</span><span class="ot">,</span> <span class="st">"HTTPS"</span><span class="ot">]</span></span>
+<span id="cb9-11"><a></a>    <span class="fu">},</span></span>
+<span id="cb9-12"><a></a>    <span class="dt">"tls-version"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb9-13"><a></a>      <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"string"</span><span class="fu">,</span></span>
+<span id="cb9-14"><a></a>      <span class="dt">"enum"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"1.2"</span><span class="ot">,</span> <span class="st">"1.3"</span><span class="ot">]</span></span>
+<span id="cb9-15"><a></a>    <span class="fu">}</span></span>
+<span id="cb9-16"><a></a>  <span class="fu">},</span></span>
+<span id="cb9-17"><a></a>  <span class="dt">"allOf"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb9-18"><a></a>    <span class="fu">{</span></span>
+<span id="cb9-19"><a></a>      <span class="dt">"if"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb9-20"><a></a>        <span class="dt">"properties"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"protocol"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"const"</span><span class="fu">:</span> <span class="st">"HTTPS"</span> <span class="fu">}</span> <span class="fu">}</span></span>
+<span id="cb9-21"><a></a>      <span class="fu">},</span></span>
+<span id="cb9-22"><a></a>      <span class="dt">"then"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb9-23"><a></a>        <span class="dt">"required"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"tls-version"</span><span class="ot">]</span></span>
+<span id="cb9-24"><a></a>      <span class="fu">}</span></span>
+<span id="cb9-25"><a></a>    <span class="fu">}</span></span>
+<span id="cb9-26"><a></a>  <span class="ot">]</span></span>
+<span id="cb9-27"><a></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="config" class="slide level2">
+<h2>Config</h2>
+<div class="fragment fade-left">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-code-line-numbers="|"><pre class="sourceCode numberSource json number-lines code-with-copy"><code class="sourceCode json"><span id="cb10-1"><a></a><span class="fu">{</span></span>
+<span id="cb10-2"><a></a>  <span class="dt">"protocol"</span><span class="fu">:</span> <span class="st">"HTTPS"</span><span class="fu">,</span></span>
+<span id="cb10-3"><a></a>  <span class="dt">"tls-version"</span><span class="fu">:</span> <span class="st">"1.0"</span></span>
+<span id="cb10-4"><a></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
 </section></section>

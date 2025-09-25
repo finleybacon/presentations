@@ -177,5 +177,34 @@ https://calm.finos.org/
 {{< include code-blocks/calm-cli.qmd >}}
 :::
 
-## First Create a Pattern
+## Patterns in CALM
 
+::: {.fragment .fade-left }
+In CALM, patterns are custom JSON schemas which adhere to the core CALM Meta Schema
+:::
+
+::: {.fragment .fade-left}
+{{< include code-blocks/consumer-pattern-3.qmd >}}
+:::
+
+## Controls in Patterns
+
+::: {.fragment .fade-left }
+You can include a control `requirement-url` and a control `config-url`
+:::
+
+::: {.fragment .fade-left}
+{{< include code-blocks/consumer-pattern-3-control.qmd >}}
+:::
+
+## Requirement
+
+::: {.fragment .fade-left}
+{{< include code-blocks/control-requirement.qmd >}}
+:::
+
+## Config
+
+::: {.fragment .fade-left}
+{{< include code-blocks/control-config.qmd >}}
+:::
