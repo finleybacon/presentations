@@ -3,7 +3,7 @@ author: "Finley Bacon"
 date: 2025-09-24
 format: revealjs
 subtitle: "ISD Architecture"
-title: "CALM:<br> Architecture-as-Code"
+title: "CALM: Architecture-as-Code"
 ---
 
 # Architecture as Code?
@@ -208,3 +208,16 @@ You can include a control `requirement-url` and a control `config-url`
 ::: {.fragment .fade-left}
 {{< include code-blocks/control-config.qmd >}}
 :::
+
+## Let's try a calm validate
+
+```{bash}
+source ~/miniconda3/etc/profile.d/conda.sh && conda activate quarto
+calm validate -p ../architecture/pattern.json -a ../architecture/architecture.json
+```
+
+## Output
+
+```{python}
+print("Hello world!")
+```

@@ -1,0 +1,4 @@
+```{.bash code-line-numbers="true"}
+source ~/miniconda3/etc/profile.d/conda.sh && conda activate quarto
+calm validate -p ../architecture/pattern.json -a ../architecture/architecture.json
+```

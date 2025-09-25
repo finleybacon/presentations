@@ -4,7 +4,7 @@ format:
   html:
     page-layout: full
 listing:
-  contents: .
+  contents: /calm/index.qmd
   date-format: iso
   field-display-names:
     subtitle: Audience
