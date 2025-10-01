@@ -211,13 +211,32 @@ You can include a control `requirement-url` and a control `config-url`
 
 ## Let's try a calm validate
 
-```{bash}
-source ~/miniconda3/etc/profile.d/conda.sh && conda activate quarto
-calm validate -p ../architecture/pattern.json -a ../architecture/architecture.json
+::: {.fragment .fade-left}
+```calm validate -p pattern.json -a architecture.json
 ```
+:::
 
-## Output
+::: {.fragment .fade-left}
+{{< include code-blocks/validate-no-errors.qmd >}}
+:::
 
-```{python}
-print("Hello world!")
+## Now let's change the architecture {data-menu-title="Architecture Change (i)"}
+
+::: {.fragment .fade-left}
+{{< include code-blocks/architecture-valid.qmd >}}
+:::
+
+## Now let's change the architecture {data-menu-title="Architecture Change (ii)"}
+
+{{< include code-blocks/architecture-invalid.qmd >}}
+
+## Result?
+
+::: {.fragment .fade-left}
+```calm validate -p pattern.json -a invalid-architecture.json
 ```
+:::
+
+::: {.fragment .fade-left}
+{{< include code-blocks/validate-errors.qmd >}}
+:::

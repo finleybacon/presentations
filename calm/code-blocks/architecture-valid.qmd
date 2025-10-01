@@ -1,0 +1,110 @@
+```{.json code-line-numbers=|41}
+{
+  "nodes": [
+    {
+      "description": "Molecule that triggers a Scheduled Event",
+      "node-type": "system",
+      "name": "Trigger",
+      "unique-id": "trigger"
+    },
+    {
+      "description": "Molecule that sends request to the Enterprise API when it is triggered",
+      "node-type": "system",
+      "name": "'Fetch from System' Connector",
+      "unique-id": "fetch-from-system-connector"
+    },
+    {
+      "description": "Molecule that converts payload to System Data Model",
+      "node-type": "system",
+      "name": "Processing",
+      "unique-id": "processing"
+    },
+    {
+      "description": "Molecule that initiates connection to System and sends payload over it",
+      "node-type": "system",
+      "name": "'Send to System' Connector",
+      "unique-id": "send-to-system-connector"
+    },
+    {
+      "description": "Target System",
+      "node-type": "system",
+      "name": "Target System",
+      "unique-id": "target-system"
+    }
+  ],
+  "relationships": [
+    {
+      "unique-id": "event-trigger",
+      "description": "Scheduled event triggers API request",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "trigger"
+          },
+          "destination": {
+            "node": "fetch-from-system-connector"
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "authentication": "OAuth2",
+      "controls": {
+        "encryption": {
+          "description": "Encryption controls for data in transit",
+          "requirements": [
+            {
+              "requirement-url": "/home/fbacon/CALM/demo/requirements/encryption-in-transit-requirement.json",
+              "config-url": "/home/fbacon/CALM/demo/configs/encryption-in-transit-config.json"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "unique-id": "publish-response",
+      "description": "Publishes response payload for processing",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "fetch-from-system-connector"
+          },
+          "destination": {
+            "node": "processing"
+          }
+        }
+      },
+      "protocol": "HTTPS"
+    },
+    {
+      "unique-id": "processing complete",
+      "description": "Publishes transformed payload to 'Send to System' Connector",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "processing"
+          },
+          "destination": {
+            "node": "send-to-system-connector"
+          }
+        }
+      },
+      "protocol": "HTTPS"
+    },
+    {
+      "unique-id": "payload-to-system",
+      "description": "Initiates connection to System and sends payload over it",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "send-to-system-connector"
+          },
+          "destination": {
+            "node": "target-system"
+          }
+        }
+      },
+      "protocol": "HTTPS"
+    }
+  ]
+}
+```
