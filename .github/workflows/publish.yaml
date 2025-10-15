@@ -21,6 +21,7 @@ jobs:
 
       - name: Render site
         run: quarto render
+        working-directory: ./   # <-- explicitly run in repo root
 
       - name: Publish to GitHub Pages
         uses: quarto-dev/quarto-actions/publish@v2
