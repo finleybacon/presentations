@@ -1,6 +1,6 @@
 ---
 author: "Finley Bacon"
-date: 2025-09-24
+date: 2025-10-15
 format: revealjs
 subtitle: "ISD Architecture"
 title: "CALM: Architecture-as-Code"
