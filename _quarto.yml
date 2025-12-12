@@ -1,5 +1,8 @@
 project:
   type: website
+  render:
+    - "*.qmd"
+    - "!calm/code-blocks/workflow-iii.qmd"
 
 website:
   title: "Finley Bacon"
