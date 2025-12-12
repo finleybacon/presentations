@@ -1,4 +1,4 @@
-```{.bash code-line-numbers=|11}
+```bash {code-line-numbers="|11"}
 Usage: calm [options] [command]
 
 A set of tools for interacting with the Common Architecture Language Model (CALM)

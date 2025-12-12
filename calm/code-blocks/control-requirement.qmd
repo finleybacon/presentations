@@ -1,4 +1,4 @@
-```{.json code-line-numbers=|7-15|17-26}
+```json {code-line-numbers="|7-15|17-26"}
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "./requirements/encryption-in-transit.json",

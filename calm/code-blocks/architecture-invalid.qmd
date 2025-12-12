@@ -1,4 +1,4 @@
-```{.json code-line-numbers=41}
+```json {code-line-numbers="41"}
 {
   "nodes": [
     {

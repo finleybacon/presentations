@@ -1,4 +1,4 @@
-```{.json code-line-numbers=|3|14,15,16|32|41|50|59|65,66,67|73|121|137|153|168}
+```json {code-line-numbers="|3|14,15,16|32|41|50|59|65,66,67|73|121|137|153|168"}
 {
   "$schema": "https://calm.finos.org/release/1.0/meta/calm.json",
   "title": "Consumer Pattern 3",
