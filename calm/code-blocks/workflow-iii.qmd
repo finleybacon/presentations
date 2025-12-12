@@ -1,4 +1,4 @@
-```{.python code-line-numbers="111,112,113,114|126|127,128,129,130,131|133,134,135,136|138,139,140,141"}
+```python {code-line-numbers="111,112,113,114|126|127,128,129,130,131|133,134,135,136|138,139,140,141"}
 workspace "ARC Services Portal" "Models the architecture of a research services web portal" {
 
     !identifiers hierarchical

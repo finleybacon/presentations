@@ -1,4 +1,4 @@
-```{.python code-line-numbers="|5|11,12|14,15,16,17|19|23|26,27,28|32|33,34,35,40,41,42|25,31,38"}
+```python {code-line-numbers="|5|11,12|14,15,16,17|19|23|26,27,28|32|33,34,35,40,41,42|25,31,38"}
 workspace "ARC Services Portal" "Models the architecture of a research services web portal" {
 
     !identifiers hierarchical
