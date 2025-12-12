@@ -1,43 +1,43 @@
-name: Publish Quarto Site
+---
+name: Quarto Publish
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch:
+    branches:
+      - main
+      - renovate/**
+  pull_request:
 
 permissions:
   contents: write
   pages: write
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  build-deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python (required for Quarto includes / code)
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.x
-
-      - name: Install Jupyter deps (safe default)
-        run: |
-          python -m pip install --upgrade pip
-          pip install jupyter nbformat
+        uses: actions/checkout@v5
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Clean previous build
-        run: rm -rf _site .quarto _freeze
+      - name: Render ${{ github.ref_name }} branch
+        if: github.ref != 'refs/heads/main'
+        uses: quarto-dev/quarto-actions/render@v2
 
-      - name: Render site
-        run: quarto render --log-level debug
-        working-directory: ./
-
-      - name: Publish to GitHub Pages
+      - name: Render and Publish to GitHub Pages
+        if: github.ref == 'refs/heads/main'
         uses: quarto-dev/quarto-actions/publish@v2
         with:
           target: gh-pages
