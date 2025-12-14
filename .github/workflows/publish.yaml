@@ -42,7 +42,7 @@ jobs:
 
       # 6. Render site
       - name: Render site
-        run: quarto render --log-level debug
+        run: quarto render
         working-directory: ./
 
       # 7. Publish to GitHub Pages if on main branch
