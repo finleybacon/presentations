@@ -27,3 +27,4 @@ format:
     theme: dark
     transition: fade
     css: styles.css
+    footer: "{{< meta title >}} | <https://finleybacon.github.io/presentations/>"

@@ -1,0 +1,332 @@
+---
+author: "Finley Bacon"
+date: 2025-10-15
+format: revealjs
+subtitle: "ISD Architecture"
+title: "IG Migration"
+---
+
+# Information Governance SharePoint Migration
+
+## What?
+
+:::: {.columns}
+
+::: {.column width="30%"}
+![](https://upload.wikimedia.org/wikipedia/commons/e/ec/Microsoft_Office_SharePoint_%282019%E2%80%932025%29.svg)
+![](https://upload.wikimedia.org/wikipedia/commons/4/4d/Microsoft_Power_Automate.svg){.absolute bottom=30 left=25 height="250"}
+:::
+
+::: {.column width="70%"}
+- Front end + Data store for the Information Governance Assurance function
+- Running for >10 years
+- Source of truth of unique identifiers, approval status, privileged roles for all registered research involving sensitive data at UCL
+- Stored in SharePoint lists
+- Workflows built with Power Automate
+:::
+
+::::
+
+## Why migrate? {data-menu-title="Why Miigrate (i)"}
+
+::: {.fragment}
+Data availability and user experience had become very poor
+:::
+
+::: {.r-stack style="margin-top: 5rem;"}
+
+![](figures/image%20copy%2010.png){.fragment .yellow-outline style="transform: rotate(-7deg);"}
+
+![](figures/image%20copy%2011.png){.fragment .yellow-outline style="transform: rotate(5deg);"}
+
+![](figures/image%20copy%2012.png){.fragment .yellow-outline style="transform: rotate(-2deg);"}
+
+![](figures/image%20copy%2013.png){.fragment .yellow-outline style="transform: rotate(6deg);"}
+
+![](figures/image%20copy%2014.png){.fragment .yellow-outline style="transform: rotate(-6deg);"}
+
+![](figures/image%20copy%209.png){.fragment .yellow-outline style="transform: rotate(4deg);"}
+
+![](figures/image%20copy%2016.png){.fragment .yellow-outline style="transform: rotate(-3deg);"}
+
+![](figures/image%20copy%2015.png){.fragment .yellow-outline style="transform: rotate(1deg);"}
+
+:::
+
+## Why migrate? {data-menu-title="Why Miigrate (ii)"}
+
+- SharePoint also generally fragile, and in this case:
+  - No relational data across SharePoint lists
+  - No validation or uniqueness enforced 
+  - Little automation so many tasks manual repetitive  
+  - Original site creators no longer at UCL
+
+- New home for the data and front end
+  - ARC Services Portal
+  - Postgres DB with extensible APIs on top
+
+::: {.fragment} 
+![](https://wiki.postgresql.org/images/a/a4/PostgreSQL_logo.3colors.svg){.absolute bottom=5 right=30 width="300"}
+:::
+
+## Key Components
+
+::: {.r-fit-text}
+Researchers and Studies
+:::
+
+## Researchers and Studies
+
+::: {.fragment .fade-left}
+Researchers have `Agreements` and `Training Status`
+:::
+
+::: {.fragment .fade-in}
+Studies have `Owners`, `Assets` and `Contracts`
+:::
+
+::: {.fragment .fade-in}
+![](https://raw.githubusercontent.com/ucl-arc-tre/portal/fc4346774626f8a1a3576a100a58468a9d58dd34/web/public/entity_diagram.drawio.svg){.absolute bottom=60 left=240 style="max-width:100%; object-fit:contain;"}
+:::
+
+## UI looks like this...
+
+![](figures/image.png){.absolute bottom=115 style="max-width:100%; max-height:80vh; object-fit:contain;"}
+
+
+## and this...
+
+![](figures/image%20copy.png){.absolute bottom=20 left=300 height="600"}
+
+## and...
+
+## and... this...
+
+![](figures/image%20copy%202.png){.absolute bottom=20 style="max-width:100%; max-height:80vh; object-fit:contain;"}
+
+
+
+## ETL & Data Import Overview
+
+:::: {.columns}
+
+::: {.column .fragment width="50%"}
+**Two Python ETL Scripts**
+
+- Load data from legacy SharePoint CSVs
+- Transform into normalized format
+- Validate and output for import
+:::
+
+::: {.column .fragment width="50%"}
+
+<span style="color: gold;">researcher.py</span> to merge researcher training & agreements
+
+<span style="color: gold;">studies.py</span> to build study/asset/contract hierarchy
+
+:::
+
+::::
+
+## Migration plan {style="text-align: center"}
+
+```{=html}
+<iframe
+    height="550"
+    src="https://miro.com/app/live-embed/uXjVGCeJFeI=/?focusWidget=3458764659302871742&embedMode=view_only_without_ui&embedId=756086315498"
+    title="Solution"
+    width="1050"
+>
+</iframe>
+```
+
+## Script 1: Researcher Data
+
+::: {.fragment}
+Load all training and agreement records
+
+```python {code-line-numbers="1,9|16-21"}
+def load_training() -> dict[str, datetime | None]:
+    training = {}
+
+    with open(TRAINING_FILE, newline="") as f:
+        reader = csv.DictReader(f)
+        clean_headers(reader)
+        ...
+
+def load_agreements() -> dict[str, bool]:
+    agreements = {}
+    with open(AGREEMENT_FILE, newline="") as f:
+        reader = csv.DictReader(f)
+        clean_headers(reader)
+        ...
+
+def normalise_username(value: str) -> str:
+    value = value.strip().lower()
+    if "@" in value:
+        value = value.replace("@", "_")
+        return f"{value}#EXT#@liveuclac.onmicrosoft.com"
+    return f"{value}@ucl.ac.uk"        
+```
+:::
+
+## Loading & Merging Records
+
+::: {.fragment}
+Load training and agreements
+
+
+```python {code-line-numbers="1-3"}
+def merge_records() -> list[Record]:
+    training = load_training()
+    agreements = load_agreements()
+
+    # All users who appear in either CSV, sorted alphabetically
+    all_users = sorted(set(training) | set(agreements))
+    
+    merged_records: list[Record] = []
+    for user in all_users:
+        has_agreed = agreements.get(user, False)
+        training_date = training.get(user, None)
+        merged_records.append(Record(...))
+```
+:::
+
+## Loading & Merging Records {data-menu-title="Loading & Merging Records (ii)"}
+
+Load training and agreements, then combine on username:
+
+```python {code-line-numbers="5-12"}
+def merge_records() -> list[Record]:
+    training = load_training()
+    agreements = load_agreements()
+
+    # All users who appear in either CSV, sorted alphabetically
+    all_users = sorted(set(training) | set(agreements))
+    
+    merged_records: list[Record] = []
+    for user in all_users:
+        has_agreed = agreements.get(user, False)
+        training_date = training.get(user, None)
+        merged_records.append(Record(...))
+```
+
+::: {.fragment}
+Union both datasets so all unique users are captured
+:::
+
+## Script 2: Studies & Assets
+
+::: {.fragment}
+Build complete study hierarchy with nested assets and contracts
+
+```python
+def build_import_json(
+    studies: Dict[str, dict],
+    assets_by_case: Dict[str, List[dict]],
+    study_contracts_by_case: Dict[str, List[dict]],
+) -> List[dict]:
+    output: List[dict] = []
+    
+    for case_ref, study in studies.items():
+        study["contracts"] = study_contracts_by_case.get(case_ref, [])
+        assets = assets_by_case.get(case_ref, [])
+        study["assets"] = assets
+        output.append(study)
+```
+:::
+
+## Reading & Parsing CSVs
+
+::: {.fragment}
+```python {code-line-numbers="6-9"}
+def read_studies(filename: str) -> Dict[str, dict]:
+    studies: Dict[str, dict] = {}
+    with open(filename, newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        clean_headers(reader)  # Strip BOM & normalize headers
+        for i, row in enumerate(reader, start=2):
+            case_ref = (row.get("CaseRef") or "").strip()
+            if not case_ref:
+                raise ValueError(f"Study row missing CaseRef (line {i})")
+```
+:::
+
+::: {.fragment}
+Strict validation catches missing or malformed data early
+:::
+
+## Date Transformations
+
+::: {.fragment}
+Parse SharePoint dates (DD/MM/YYYY) to ISO format (YYYY-MM-DD):
+
+```python {code-line-numbers="1-9"}
+def parse_date(date_str: str) -> Optional[str]:
+    ds = (date_str or "").strip()
+    if not ds:
+        return None
+    try:
+        dt = datetime.strptime(ds, "%d/%m/%Y")
+        return dt.strftime("%Y-%m-%d")
+    except ValueError:
+        return None
+```
+::: 
+
+::: {.fragment}
+Ensures consistent date handling across all entities
+:::
+
+## Validation & Output
+
+::: {.fragment}
+```python {code-line-numbers="1-8"}
+def validate(import_data: List[dict]) -> List[str]:
+    errors: List[str] = []
+    seen_case: set[str] = set()
+    
+    for s in import_data:
+        cr = s.get("caseref", "")
+        if cr in seen_case:
+            errors.append(f"Duplicate CaseRef: {cr}")
+```
+:::
+
+- Detects duplicates across all entity types
+- Validates date formats  
+- Prevents bad data entering the new system
+
+## Output & Handoff
+
+::: {.fragment}
+Both scripts output normalised data:
+:::
+
+:::: {.columns}
+
+::: {.column .fragment width="50%"}
+**`researchers.py`**
+
+- CSV: username, agreement, training_date
+- Uses schema expected by importer
+:::
+
+::: {.column .fragment width="50%"}
+**`studies.py`**
+
+- JSON: Array of studies with nested assets/contracts
+- UUIDs generated on import
+:::
+
+::::
+
+::: {.fragment}
+Ready for consumption by the import services in the portal codebase
+:::
+
+## Final message
+
+<video autoplay controls style="position:absolute; bottom:50px; width:100%; object-fit:contain;">
+  <source src="figures/biden.mp4" type="video/mp4">
+</video>

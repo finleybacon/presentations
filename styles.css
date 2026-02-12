@@ -1,1 +1,4 @@
-/* css styles */
+.yellow-outline {
+  border: 2px solid gold;
+  box-sizing: border-box;
+}
