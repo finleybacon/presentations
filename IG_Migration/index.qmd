@@ -327,6 +327,6 @@ Ready for consumption by the import services in the portal codebase
 
 ## Final message
 
-<video autoplay controls style="position:absolute; bottom:50px; width:100%; object-fit:contain;">
+<video controls style="position:absolute; bottom:50px; width:100%; object-fit:contain;">
   <source src="figures/biden.mp4" type="video/mp4">
 </video>
