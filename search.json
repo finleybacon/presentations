@@ -1,150 +1,129 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Presentations",
-    "section": "",
-    "text": "Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nAudience\n\n\n\nAuthor\n\n\n\n\n\n\n\n\n2026-02-14\n\n\nIG Migration\n\n\nISD Architecture\n\n\nFinley Bacon\n\n\n\n\n\n\n2025-10-15\n\n\nCALM: Architecture-as-Code\n\n\nISD Architecture\n\n\nFinley Bacon\n\n\n\n\n\n\nNo matching items"
+    "objectID": "portal/index.html#first-what-is-it",
+    "href": "portal/index.html#first-what-is-it",
+    "title": "ARC Services Portal",
+    "section": "First: what is it?",
+    "text": "First: what is it?\n\nManagement interface + datastore for UCL’s Information Governance Assurance function\nReplacing existing portal which has been running for &gt;10 years\nSource of truth of unique identifiers, approval status, privileged roles for all registered research involving sensitive data at UCL\nCurrent Portal built with SharePoint lists as the datastore, workflows and logic built with Power Automate"
   },
   {
-    "objectID": "IG_Migration/index.html#what",
-    "href": "IG_Migration/index.html#what",
-    "title": "IG Migration",
-    "section": "What?",
-    "text": "What?\n\n\n \n\n\nFront end + Data store for the Information Governance Assurance function\nRunning for &gt;10 years\nSource of truth of unique identifiers, approval status, privileged roles for all registered research involving sensitive data at UCL\nStored in SharePoint lists\nWorkflows built with Power Automate"
+    "objectID": "portal/index.html#first-what-is-it-1",
+    "href": "portal/index.html#first-what-is-it-1",
+    "title": "ARC Services Portal",
+    "section": "First: what is it?",
+    "text": "First: what is it?\nA 3-tier web app following Twelve-Factor App thinking\n\nGo for backend services\nReact (NextJS) for the frontend\nDocker for containerized development and deployment\nNginx as a reverse proxy in dev\nPostgreSQL as the database\nCypress for end-to-end testing\nS3 for object storage"
   },
   {
-    "objectID": "IG_Migration/index.html#why-migrate",
-    "href": "IG_Migration/index.html#why-migrate",
-    "title": "IG Migration",
-    "section": "Why migrate?",
-    "text": "Why migrate?\n\nData availability and user experience had become very poor"
+    "objectID": "portal/index.html#first-what-is-it-2",
+    "href": "portal/index.html#first-what-is-it-2",
+    "title": "ARC Services Portal",
+    "section": "First: what is it?",
+    "text": "First: what is it?\nRuns on EKS in production, expected to serve 1000s of users:\n\nFronts UCL’s Trusted Research Envrionments\n\nUser registration and profile creation\nStudy creation: information governance construct for assurance and compliance\nProject creation and management: to access resources in technical envrionemnts"
   },
   {
-    "objectID": "IG_Migration/index.html#why-migrate-1",
-    "href": "IG_Migration/index.html#why-migrate-1",
-    "title": "IG Migration",
-    "section": "Why migrate?",
-    "text": "Why migrate?\n\nSharePoint also generally fragile, and in this case:\n\nNo relational data across SharePoint lists\nNo validation or uniqueness enforced\nLittle automation so many tasks manual repetitive\n\nOriginal site creators no longer at UCL\n\nNew home for the data and front end\n\nARC Services Portal\nPostgres DB with extensible APIs on top"
+    "objectID": "portal/index.html#first-what-is-it-3",
+    "href": "portal/index.html#first-what-is-it-3",
+    "title": "ARC Services Portal",
+    "section": "First: what is it?",
+    "text": "First: what is it?\n\nBut: extensible to allow reuse of profile for more UCL computing services\n\nResearch Data Storage Services\nElectronic Research Notebook"
   },
   {
-    "objectID": "IG_Migration/index.html#key-components",
-    "href": "IG_Migration/index.html#key-components",
-    "title": "IG Migration",
-    "section": "Key Components",
-    "text": "Key Components\n\nResearchers and Studies"
+    "objectID": "portal/index.html#first-what-is-it-4",
+    "href": "portal/index.html#first-what-is-it-4",
+    "title": "ARC Services Portal",
+    "section": "First: what is it?",
+    "text": "First: what is it?"
   },
   {
-    "objectID": "IG_Migration/index.html#researchers-and-studies",
-    "href": "IG_Migration/index.html#researchers-and-studies",
-    "title": "IG Migration",
-    "section": "Researchers and Studies",
-    "text": "Researchers and Studies\n\nResearchers have Agreements and Training Status\n\n\nStudies have Owners, Assets and Contracts"
+    "objectID": "portal/index.html#information-at-beginning",
+    "href": "portal/index.html#information-at-beginning",
+    "title": "ARC Services Portal",
+    "section": "Information at beginning",
+    "text": "Information at beginning\n\nHigh level functional requirements well defined\nImplementation of existing portal very murky\n\nMaintainer of portal left UCL in June 2025\nWasn’t even the original creator\n\nSerious data quality issues in existing portal\nDevelopment resource constrained"
   },
   {
-    "objectID": "IG_Migration/index.html#ui-looks-like-this",
-    "href": "IG_Migration/index.html#ui-looks-like-this",
-    "title": "IG Migration",
-    "section": "UI looks like this…",
-    "text": "UI looks like this…"
+    "objectID": "portal/index.html#the-ambition",
+    "href": "portal/index.html#the-ambition",
+    "title": "ARC Services Portal",
+    "section": "The Ambition",
+    "text": "The Ambition\n\nCreate a tool which not only helps users and UCL satisfy regulatory and statutory obligations, but a tool that is genuinely useful and facilitates better research outputs."
   },
   {
-    "objectID": "IG_Migration/index.html#and-this",
-    "href": "IG_Migration/index.html#and-this",
-    "title": "IG Migration",
-    "section": "and this…",
-    "text": "and this…"
+    "objectID": "portal/index.html#where-are-we-now",
+    "href": "portal/index.html#where-are-we-now",
+    "title": "ARC Services Portal",
+    "section": "Where are we now?",
+    "text": "Where are we now?\nThe ARC Services Portal is live:\n\nhttps://portal.arc.ucl.ac.uk\n\n\nUsers profile and onboarding functionality ✅\nStudy creation, review & approval, management ✅\nProject creation, management 🛠️\n\n\nData migration time…"
   },
   {
-    "objectID": "IG_Migration/index.html#and",
-    "href": "IG_Migration/index.html#and",
-    "title": "IG Migration",
-    "section": "and…",
-    "text": "and…"
+    "objectID": "portal/index.html#migration-options",
+    "href": "portal/index.html#migration-options",
+    "title": "ARC Services Portal",
+    "section": "Migration Options",
+    "text": "Migration Options\n\n\n\nSymmetrical incremental\n\n\nLeast pressure on devs, most fragmented UX\n\n\n☹️\n\n\n\nAsymmetrical incremental\n\n\nARC TRE first, perhaps middle path for all\n\n\n🙃\n\n\n\nBig bang: all at once\n\n\nBest for users, worst for developers!\n\n\n🥴"
   },
   {
-    "objectID": "IG_Migration/index.html#and-this-1",
-    "href": "IG_Migration/index.html#and-this-1",
-    "title": "IG Migration",
-    "section": "and… this…",
-    "text": "and… this…"
+    "objectID": "portal/index.html#migration-tbc",
+    "href": "portal/index.html#migration-tbc",
+    "title": "ARC Services Portal",
+    "section": "Migration TBC…",
+    "text": "Migration TBC…"
   },
   {
-    "objectID": "IG_Migration/index.html#etl-data-import-overview",
-    "href": "IG_Migration/index.html#etl-data-import-overview",
-    "title": "IG Migration",
-    "section": "ETL & Data Import Overview",
-    "text": "ETL & Data Import Overview\n\n\nTwo Python ETL Scripts\n\nLoad data from legacy SharePoint CSVs\nTransform into normalized format\nValidate and output for import\n\n\nresearcher.py to merge researcher training & agreements\nstudies.py to build study/asset/contract hierarchy"
+    "objectID": "portal/index.html#clear-communication-among-a-capable-team",
+    "href": "portal/index.html#clear-communication-among-a-capable-team",
+    "title": "ARC Services Portal",
+    "section": "1. Clear communication among a capable team",
+    "text": "1. Clear communication among a capable team\n\nReally natural blend of Agile, Scrum and Kanban\n→ this is how development frameworks are best used\n\n\nStandups, sprint planning, focused issue-driven feature development"
   },
   {
-    "objectID": "IG_Migration/index.html#migration-plan",
-    "href": "IG_Migration/index.html#migration-plan",
-    "title": "IG Migration",
-    "section": "Migration plan",
-    "text": "Migration plan"
+    "objectID": "portal/index.html#fast-feedback-in-ignorance-of-current-platforms-internals",
+    "href": "portal/index.html#fast-feedback-in-ignorance-of-current-platforms-internals",
+    "title": "ARC Services Portal",
+    "section": "2. Fast feedback in ignorance of current platform’s internals",
+    "text": "2. Fast feedback in ignorance of current platform’s internals\n\nIt’s difficult to replace a piece of software:\n\n\nUsers are familiar with the existing system\nUsers dislike some things - but love other thjings!\nTension between these two things needs careful management\nMany stakeholders: Info Gov admins, TRE Ops staff, compliance teams, portal developers, senior leadership, service owners… and users!"
   },
   {
-    "objectID": "IG_Migration/index.html#script-1-researcher-data",
-    "href": "IG_Migration/index.html#script-1-researcher-data",
-    "title": "IG Migration",
-    "section": "Script 1: Researcher Data",
-    "text": "Script 1: Researcher Data\n\nLoad all training and agreement records\ndef load_training() -&gt; dict[str, datetime | None]:\n    training = {}\n\n    with open(TRAINING_FILE, newline=\"\") as f:\n        reader = csv.DictReader(f)\n        clean_headers(reader)\n        ...\n\ndef load_agreements() -&gt; dict[str, bool]:\n    agreements = {}\n    with open(AGREEMENT_FILE, newline=\"\") as f:\n        reader = csv.DictReader(f)\n        clean_headers(reader)\n        ...\n\ndef normalise_username(value: str) -&gt; str:\n    value = value.strip().lower()\n    if \"@\" in value:\n        value = value.replace(\"@\", \"_\")\n        return f\"{value}#EXT#@liveuclac.onmicrosoft.com\"\n    return f\"{value}@ucl.ac.uk\""
+    "objectID": "portal/index.html#success-in-achieving-consensus-on-difficult-design-choices",
+    "href": "portal/index.html#success-in-achieving-consensus-on-difficult-design-choices",
+    "title": "ARC Services Portal",
+    "section": "3. Success in achieving consensus on difficult design choices",
+    "text": "3. Success in achieving consensus on difficult design choices\n\nOptions papers\nEndorsement from Design Authorities\nJustified departure from strategic heuristics\nTriumph of adverserial and open discussion"
   },
   {
-    "objectID": "IG_Migration/index.html#loading-merging-records",
-    "href": "IG_Migration/index.html#loading-merging-records",
-    "title": "IG Migration",
-    "section": "Loading & Merging Records",
-    "text": "Loading & Merging Records\n\nLoad training and agreements\ndef merge_records() -&gt; list[Record]:\n    training = load_training()\n    agreements = load_agreements()\n\n    # All users who appear in either CSV, sorted alphabetically\n    all_users = sorted(set(training) | set(agreements))\n    \n    merged_records: list[Record] = []\n    for user in all_users:\n        has_agreed = agreements.get(user, False)\n        training_date = training.get(user, None)\n        merged_records.append(Record(...))"
+    "objectID": "portal/index.html#detail-in-issues-peaked-and-troughed",
+    "href": "portal/index.html#detail-in-issues-peaked-and-troughed",
+    "title": "ARC Services Portal",
+    "section": "1. Detail in issues peaked and troughed",
+    "text": "1. Detail in issues peaked and troughed\n\nOften team members on the same page, but sometimes not:\n\n\nPick up an issue and start development, only to realise later the necessary detail wasn’t there\nKept happening even after we started noticing it!\nAt times understandable due to the complex nature of the logic being implemented"
   },
   {
-    "objectID": "IG_Migration/index.html#loading-merging-records-1",
-    "href": "IG_Migration/index.html#loading-merging-records-1",
-    "title": "IG Migration",
-    "section": "Loading & Merging Records",
-    "text": "Loading & Merging Records\nLoad training and agreements, then combine on username:\ndef merge_records() -&gt; list[Record]:\n    training = load_training()\n    agreements = load_agreements()\n\n    # All users who appear in either CSV, sorted alphabetically\n    all_users = sorted(set(training) | set(agreements))\n    \n    merged_records: list[Record] = []\n    for user in all_users:\n        has_agreed = agreements.get(user, False)\n        training_date = training.get(user, None)\n        merged_records.append(Record(...))\n\nUnion both datasets so all unique users are captured"
+    "objectID": "portal/index.html#estimating-timeframes",
+    "href": "portal/index.html#estimating-timeframes",
+    "title": "ARC Services Portal",
+    "section": "2. Estimating timeframes",
+    "text": "2. Estimating timeframes\n\nThis didn’t go particualrly badly by any stretch of the imagination, but:\n\n\nEstimating delivery of things is hard! Particularly in the world of unknown unknowns.\nTempting to resort to “We’re being Agile!” (== “Stop asking us difficult questions!”)"
   },
   {
-    "objectID": "IG_Migration/index.html#script-2-studies-assets",
-    "href": "IG_Migration/index.html#script-2-studies-assets",
-    "title": "IG Migration",
-    "section": "Script 2: Studies & Assets",
-    "text": "Script 2: Studies & Assets\n\nBuild complete study hierarchy with nested assets and contracts\ndef build_import_json(\n    studies: Dict[str, dict],\n    assets_by_case: Dict[str, List[dict]],\n    study_contracts_by_case: Dict[str, List[dict]],\n) -&gt; List[dict]:\n    output: List[dict] = []\n    \n    for case_ref, study in studies.items():\n        study[\"contracts\"] = study_contracts_by_case.get(case_ref, [])\n        assets = assets_by_case.get(case_ref, [])\n        study[\"assets\"] = assets\n        output.append(study)"
+    "objectID": "portal/index.html#communicate-often-ask-stupid-questions",
+    "href": "portal/index.html#communicate-often-ask-stupid-questions",
+    "title": "ARC Services Portal",
+    "section": "1. Communicate often, ask stupid questions",
+    "text": "1. Communicate often, ask stupid questions\n\nReally important to get everyone on the same page\nIn a team with no egos it’s easier to ask the stupid (best) questions"
   },
   {
-    "objectID": "IG_Migration/index.html#reading-parsing-csvs",
-    "href": "IG_Migration/index.html#reading-parsing-csvs",
-    "title": "IG Migration",
-    "section": "Reading & Parsing CSVs",
-    "text": "Reading & Parsing CSVs\n\ndef read_studies(filename: str) -&gt; Dict[str, dict]:\n    studies: Dict[str, dict] = {}\n    with open(filename, newline=\"\", encoding=\"utf-8\") as f:\n        reader = csv.DictReader(f)\n        clean_headers(reader)  # Strip BOM & normalize headers\n        for i, row in enumerate(reader, start=2):\n            case_ref = (row.get(\"CaseRef\") or \"\").strip()\n            if not case_ref:\n                raise ValueError(f\"Study row missing CaseRef (line {i})\")\n\n\nStrict validation catches missing or malformed data early"
+    "objectID": "portal/index.html#be-disciplined-with-issue-details",
+    "href": "portal/index.html#be-disciplined-with-issue-details",
+    "title": "ARC Services Portal",
+    "section": "2. Be disciplined with issue details",
+    "text": "2. Be disciplined with issue details\n\nCan be difficult, but if you don’t know details, say you don’t know\nTreat the issues and project board as gospel == one source of truth for everyone"
   },
   {
-    "objectID": "IG_Migration/index.html#date-transformations",
-    "href": "IG_Migration/index.html#date-transformations",
-    "title": "IG Migration",
-    "section": "Date Transformations",
-    "text": "Date Transformations\n\nParse SharePoint dates (DD/MM/YYYY) to ISO format (YYYY-MM-DD):\ndef parse_date(date_str: str) -&gt; Optional[str]:\n    ds = (date_str or \"\").strip()\n    if not ds:\n        return None\n    try:\n        dt = datetime.strptime(ds, \"%d/%m/%Y\")\n        return dt.strftime(\"%Y-%m-%d\")\n    except ValueError:\n        return None\n\n\nEnsures consistent date handling across all entities"
-  },
-  {
-    "objectID": "IG_Migration/index.html#validation-output",
-    "href": "IG_Migration/index.html#validation-output",
-    "title": "IG Migration",
-    "section": "Validation & Output",
-    "text": "Validation & Output\n\ndef validate(import_data: List[dict]) -&gt; List[str]:\n    errors: List[str] = []\n    seen_case: set[str] = set()\n    \n    for s in import_data:\n        cr = s.get(\"caseref\", \"\")\n        if cr in seen_case:\n            errors.append(f\"Duplicate CaseRef: {cr}\")\n\n\nDetects duplicates across all entity types\nValidates date formats\n\nPrevents bad data entering the new system"
-  },
-  {
-    "objectID": "IG_Migration/index.html#output-handoff",
-    "href": "IG_Migration/index.html#output-handoff",
-    "title": "IG Migration",
-    "section": "Output & Handoff",
-    "text": "Output & Handoff\n\nBoth scripts output normalised data:\n\n\n\nresearchers.py\n\nCSV: username, agreement, training_date\nUses schema expected by importer\n\n\nstudies.py\n\nJSON: Array of studies with nested assets/contracts\nUUIDs generated on import\n\n\n\nReady for consumption by the import services in the portal codebase"
-  },
-  {
-    "objectID": "IG_Migration/index.html#final-message",
-    "href": "IG_Migration/index.html#final-message",
-    "title": "IG Migration",
-    "section": "Final message",
-    "text": "Final message"
+    "objectID": "portal/index.html#have-difficult-conversations-early",
+    "href": "portal/index.html#have-difficult-conversations-early",
+    "title": "ARC Services Portal",
+    "section": "3. Have difficult conversations early",
+    "text": "3. Have difficult conversations early\n\nEspecially with senior or busy stakeholders, book early, and provide materials beforehand.\nLess a lesson learned and more a trick to repeat next time!"
   },
   {
     "objectID": "calm/index.html#what",
@@ -334,5 +313,152 @@
     "title": "CALM: Architecture-as-Code",
     "section": "Result?",
     "text": "Result?\n\ncalm validate -p pattern.json -a invalid-architecture.json\n\n\n(calm-demo) fbacon@CS00058225:~/GitHub/presentations/calm/architecture$ calm validate -p pattern.json -a bad-architecture.json\ninfo [file-system-document-loader]:     bad-architecture.json exists, loading as file...\ninfo [file-system-document-loader]:     pattern.json exists, loading as file...\ninfo [calm-validate]:     Formatting output as json\n{\n    \"jsonSchemaValidationOutputs\": [\n        {\n            \"code\": \"json-schema\",\n            \"severity\": \"error\",\n            \"message\": \"must be equal to constant\",\n            \"path\": \"/relationships/0/relationship-type\",\n            \"schemaPath\": \"#/properties/relationships/prefixItems/0/properties/relationship-type/const\"\n        }\n    ],\n    \"spectralSchemaValidationOutputs\": [\n        {\n            \"code\": \"architecture-nodes-must-be-referenced\",\n            \"severity\": \"warning\",\n            \"message\": \"Node with ID 'trigger' is not referenced by any relationships.\",\n            \"path\": \"/nodes/0/unique-id\",\n            \"schemaPath\": \"\",\n            \"line_start\": 0,\n            \"line_end\": 0,\n            \"character_start\": 118,\n            \"character_end\": 127\n        }\n    ],\n    \"hasErrors\": true,\n    \"hasWarnings\": true"
+  },
+  {
+    "objectID": "IG_Migration/index.html#what",
+    "href": "IG_Migration/index.html#what",
+    "title": "IG Migration",
+    "section": "What?",
+    "text": "What?\n\n\n \n\n\nFront end + Data store for the Information Governance Assurance function\nRunning for &gt;10 years\nSource of truth of unique identifiers, approval status, privileged roles for all registered research involving sensitive data at UCL\nStored in SharePoint lists\nWorkflows built with Power Automate"
+  },
+  {
+    "objectID": "IG_Migration/index.html#why-migrate",
+    "href": "IG_Migration/index.html#why-migrate",
+    "title": "IG Migration",
+    "section": "Why migrate?",
+    "text": "Why migrate?\n\nData availability and user experience had become very poor"
+  },
+  {
+    "objectID": "IG_Migration/index.html#why-migrate-1",
+    "href": "IG_Migration/index.html#why-migrate-1",
+    "title": "IG Migration",
+    "section": "Why migrate?",
+    "text": "Why migrate?\n\nSharePoint also generally fragile, and in this case:\n\nNo relational data across SharePoint lists\nNo validation or uniqueness enforced\nLittle automation so many tasks manual repetitive\n\nOriginal site creators no longer at UCL\n\nNew home for the data and front end\n\nARC Services Portal\nPostgres DB with extensible APIs on top"
+  },
+  {
+    "objectID": "IG_Migration/index.html#key-components",
+    "href": "IG_Migration/index.html#key-components",
+    "title": "IG Migration",
+    "section": "Key Components",
+    "text": "Key Components\n\nResearchers and Studies"
+  },
+  {
+    "objectID": "IG_Migration/index.html#researchers-and-studies",
+    "href": "IG_Migration/index.html#researchers-and-studies",
+    "title": "IG Migration",
+    "section": "Researchers and Studies",
+    "text": "Researchers and Studies\n\nResearchers have Agreements and Training Status\n\n\nStudies have Owners, Assets and Contracts"
+  },
+  {
+    "objectID": "IG_Migration/index.html#ui-looks-like-this",
+    "href": "IG_Migration/index.html#ui-looks-like-this",
+    "title": "IG Migration",
+    "section": "UI looks like this…",
+    "text": "UI looks like this…"
+  },
+  {
+    "objectID": "IG_Migration/index.html#and-this",
+    "href": "IG_Migration/index.html#and-this",
+    "title": "IG Migration",
+    "section": "and this…",
+    "text": "and this…"
+  },
+  {
+    "objectID": "IG_Migration/index.html#and",
+    "href": "IG_Migration/index.html#and",
+    "title": "IG Migration",
+    "section": "and…",
+    "text": "and…"
+  },
+  {
+    "objectID": "IG_Migration/index.html#and-this-1",
+    "href": "IG_Migration/index.html#and-this-1",
+    "title": "IG Migration",
+    "section": "and… this…",
+    "text": "and… this…"
+  },
+  {
+    "objectID": "IG_Migration/index.html#etl-data-import-overview",
+    "href": "IG_Migration/index.html#etl-data-import-overview",
+    "title": "IG Migration",
+    "section": "ETL & Data Import Overview",
+    "text": "ETL & Data Import Overview\n\n\nTwo Python ETL Scripts\n\nLoad data from legacy SharePoint CSVs\nTransform into normalized format\nValidate and output for import\n\n\nresearcher.py to merge researcher training & agreements\nstudies.py to build study/asset/contract hierarchy"
+  },
+  {
+    "objectID": "IG_Migration/index.html#migration-plan",
+    "href": "IG_Migration/index.html#migration-plan",
+    "title": "IG Migration",
+    "section": "Migration plan",
+    "text": "Migration plan"
+  },
+  {
+    "objectID": "IG_Migration/index.html#script-1-researcher-data",
+    "href": "IG_Migration/index.html#script-1-researcher-data",
+    "title": "IG Migration",
+    "section": "Script 1: Researcher Data",
+    "text": "Script 1: Researcher Data\n\nLoad all training and agreement records\ndef load_training() -&gt; dict[str, datetime | None]:\n    training = {}\n\n    with open(TRAINING_FILE, newline=\"\") as f:\n        reader = csv.DictReader(f)\n        clean_headers(reader)\n        ...\n\ndef load_agreements() -&gt; dict[str, bool]:\n    agreements = {}\n    with open(AGREEMENT_FILE, newline=\"\") as f:\n        reader = csv.DictReader(f)\n        clean_headers(reader)\n        ...\n\ndef normalise_username(value: str) -&gt; str:\n    value = value.strip().lower()\n    if \"@\" in value:\n        value = value.replace(\"@\", \"_\")\n        return f\"{value}#EXT#@liveuclac.onmicrosoft.com\"\n    return f\"{value}@ucl.ac.uk\""
+  },
+  {
+    "objectID": "IG_Migration/index.html#loading-merging-records",
+    "href": "IG_Migration/index.html#loading-merging-records",
+    "title": "IG Migration",
+    "section": "Loading & Merging Records",
+    "text": "Loading & Merging Records\n\nLoad training and agreements\ndef merge_records() -&gt; list[Record]:\n    training = load_training()\n    agreements = load_agreements()\n\n    # All users who appear in either CSV, sorted alphabetically\n    all_users = sorted(set(training) | set(agreements))\n    \n    merged_records: list[Record] = []\n    for user in all_users:\n        has_agreed = agreements.get(user, False)\n        training_date = training.get(user, None)\n        merged_records.append(Record(...))"
+  },
+  {
+    "objectID": "IG_Migration/index.html#loading-merging-records-1",
+    "href": "IG_Migration/index.html#loading-merging-records-1",
+    "title": "IG Migration",
+    "section": "Loading & Merging Records",
+    "text": "Loading & Merging Records\nLoad training and agreements, then combine on username:\ndef merge_records() -&gt; list[Record]:\n    training = load_training()\n    agreements = load_agreements()\n\n    # All users who appear in either CSV, sorted alphabetically\n    all_users = sorted(set(training) | set(agreements))\n    \n    merged_records: list[Record] = []\n    for user in all_users:\n        has_agreed = agreements.get(user, False)\n        training_date = training.get(user, None)\n        merged_records.append(Record(...))\n\nUnion both datasets so all unique users are captured"
+  },
+  {
+    "objectID": "IG_Migration/index.html#script-2-studies-assets",
+    "href": "IG_Migration/index.html#script-2-studies-assets",
+    "title": "IG Migration",
+    "section": "Script 2: Studies & Assets",
+    "text": "Script 2: Studies & Assets\n\nBuild complete study hierarchy with nested assets and contracts\ndef build_import_json(\n    studies: Dict[str, dict],\n    assets_by_case: Dict[str, List[dict]],\n    study_contracts_by_case: Dict[str, List[dict]],\n) -&gt; List[dict]:\n    output: List[dict] = []\n    \n    for case_ref, study in studies.items():\n        study[\"contracts\"] = study_contracts_by_case.get(case_ref, [])\n        assets = assets_by_case.get(case_ref, [])\n        study[\"assets\"] = assets\n        output.append(study)"
+  },
+  {
+    "objectID": "IG_Migration/index.html#reading-parsing-csvs",
+    "href": "IG_Migration/index.html#reading-parsing-csvs",
+    "title": "IG Migration",
+    "section": "Reading & Parsing CSVs",
+    "text": "Reading & Parsing CSVs\n\ndef read_studies(filename: str) -&gt; Dict[str, dict]:\n    studies: Dict[str, dict] = {}\n    with open(filename, newline=\"\", encoding=\"utf-8\") as f:\n        reader = csv.DictReader(f)\n        clean_headers(reader)  # Strip BOM & normalize headers\n        for i, row in enumerate(reader, start=2):\n            case_ref = (row.get(\"CaseRef\") or \"\").strip()\n            if not case_ref:\n                raise ValueError(f\"Study row missing CaseRef (line {i})\")\n\n\nStrict validation catches missing or malformed data early"
+  },
+  {
+    "objectID": "IG_Migration/index.html#date-transformations",
+    "href": "IG_Migration/index.html#date-transformations",
+    "title": "IG Migration",
+    "section": "Date Transformations",
+    "text": "Date Transformations\n\nParse SharePoint dates (DD/MM/YYYY) to ISO format (YYYY-MM-DD):\ndef parse_date(date_str: str) -&gt; Optional[str]:\n    ds = (date_str or \"\").strip()\n    if not ds:\n        return None\n    try:\n        dt = datetime.strptime(ds, \"%d/%m/%Y\")\n        return dt.strftime(\"%Y-%m-%d\")\n    except ValueError:\n        return None\n\n\nEnsures consistent date handling across all entities"
+  },
+  {
+    "objectID": "IG_Migration/index.html#validation-output",
+    "href": "IG_Migration/index.html#validation-output",
+    "title": "IG Migration",
+    "section": "Validation & Output",
+    "text": "Validation & Output\n\ndef validate(import_data: List[dict]) -&gt; List[str]:\n    errors: List[str] = []\n    seen_case: set[str] = set()\n    \n    for s in import_data:\n        cr = s.get(\"caseref\", \"\")\n        if cr in seen_case:\n            errors.append(f\"Duplicate CaseRef: {cr}\")\n\n\nDetects duplicates across all entity types\nValidates date formats\n\nPrevents bad data entering the new system"
+  },
+  {
+    "objectID": "IG_Migration/index.html#output-handoff",
+    "href": "IG_Migration/index.html#output-handoff",
+    "title": "IG Migration",
+    "section": "Output & Handoff",
+    "text": "Output & Handoff\n\nBoth scripts output normalised data:\n\n\n\nresearchers.py\n\nCSV: username, agreement, training_date\nUses schema expected by importer\n\n\nstudies.py\n\nJSON: Array of studies with nested assets/contracts\nUUIDs generated on import\n\n\n\nReady for consumption by the import services in the portal codebase"
+  },
+  {
+    "objectID": "IG_Migration/index.html#final-message",
+    "href": "IG_Migration/index.html#final-message",
+    "title": "IG Migration",
+    "section": "Final message",
+    "text": "Final message"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Presentations",
+    "section": "",
+    "text": "Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nAudience\n\n\n\nAuthor\n\n\n\n\n\n\n\n\n2026-03-20\n\n\nARC Services Portal\n\n\nAdvanced Research Computing\n\n\nFinley Bacon\n\n\n\n\n\n\n2026-02-14\n\n\nIG Migration\n\n\nISD Architecture\n\n\nFinley Bacon\n\n\n\n\n\n\n2025-10-15\n\n\nCALM: Architecture-as-Code\n\n\nISD Architecture\n\n\nFinley Bacon\n\n\n\n\n\n\nNo matching items"
   }
 ]

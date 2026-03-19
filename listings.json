@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/portal/index.html",
       "/IG_Migration/index.html",
       "/calm/index.html"
     ]
