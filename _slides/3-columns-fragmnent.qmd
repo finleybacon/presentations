@@ -1,0 +1,45 @@
+:::: {.columns style="display: flex; justify-content: space-between; margin-top: 2em;"}
+
+::: {.column style="flex: 1; margin: 0 0.3em;"}
+<div class="fragment" style="text-align: center;">
+**Symmetrical incremental**
+</div>
+
+<div class="fragment" style="text-align: center;">
+Least pressure on devs, most fragmented UX
+</div>
+
+<div class="fragment" style="text-align: center; font-size: 2em;">
+☹️
+</div>
+:::
+
+::: {.column style="flex: 1; margin: 0 0.3em;"}
+<div class="fragment" style="text-align: center;">
+**Asymmetrical incremental**
+</div>
+
+<div class="fragment" style="text-align: center;">
+ARC TRE first, perhaps middle path for all
+</div>
+
+<div class="fragment" style="text-align: center; font-size: 2em;">
+🙃
+</div>
+:::
+
+::: {.column style="flex: 1; margin: 0 0.3em;"}
+<div class="fragment" style="text-align: center;">
+**Big bang: all at once**
+</div>
+
+<div class="fragment" style="text-align: center;">
+Best for users, worst for developers!
+</div>
+
+<div class="fragment" style="text-align: center; font-size: 2em;">
+🥴
+</div>
+:::
+
+::::

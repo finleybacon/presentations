@@ -7,3 +7,4 @@
 > agile software development; many DevOps aspects came from the agile way of
 > working. Automation is an important part of DevOps. Software programmers and
 > architects should use "fitness functions" to keep their software in check.
+> -- _[Steve Francia (Go Team)](https://spf13.com/p/rust-vs-go-better-together)_
