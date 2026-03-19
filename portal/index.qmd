@@ -2,7 +2,7 @@
 author: "Finley Bacon"
 date: 2026-03-20
 format: revealjs
-subtitle: "A Review"
+subtitle: "Advanced Research Computing"
 title: "ARC Services Portal"
 ---
 
