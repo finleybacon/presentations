@@ -7,6 +7,7 @@ listing:
   contents: 
     - /calm/index.qmd
     - /IG_Migration/index.qmd
+    - /portal/index.qmd
   date-format: iso
   field-display-names:
     subtitle: Audience
