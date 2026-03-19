@@ -14,8 +14,7 @@ website:
 format:
   html:
     theme:
-      - cosmo
-      - brand
+      - zephyr
     css: styles.css
     toc: true
   revealjs: 
@@ -24,7 +23,7 @@ format:
     incremental: true
     preview-links: true
     slide-number: c
-    theme: dark
+    theme: night
     transition: fade
     css: styles.css
     footer: "{{< meta title >}} | <https://finleybacon.github.io/presentations/>"
