@@ -1,0 +1,23 @@
+::: {.fragment}
+Intro line explaining what's about to come
+:::
+
+::: {.r-stack style="margin-top: 5rem;"}
+
+![](figures/image-0.png){.fragment .yellow-outline style="transform: rotate(-7deg);"}
+
+![](figures/image-1.png){.fragment .yellow-outline style="transform: rotate(5deg);"}
+
+![](figures/image-2.png){.fragment .yellow-outline style="transform: rotate(-2deg);"}
+
+![](figures/image-3.png){.fragment .yellow-outline style="transform: rotate(6deg);"}
+
+![](figures/image-4.png){.fragment .yellow-outline style="transform: rotate(-6deg);"}
+
+![](figures/image-5.png){.fragment .yellow-outline style="transform: rotate(4deg);"}
+
+![](figures/image-6.png){.fragment .yellow-outline style="transform: rotate(-3deg);"}
+
+![](figures/image-6.png){.fragment .yellow-outline style="transform: rotate(1deg);"}
+
+:::
