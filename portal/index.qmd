@@ -125,7 +125,7 @@ Best for users, worst for developers!
 
 ::::
 
-## Migration TBC... {.centered-slide}
+# Migration TBC...
 
 # What went well?
 
@@ -146,7 +146,7 @@ It's difficult to replace a piece of software:
 :::
 
 - Users are familiar with the existing system
-- Users dislike some things - but love other thjings!
+- Users dislike some things - but love other things!
 - Tension between these two things needs careful management
 - Many stakeholders: Info Gov admins, TRE Ops staff, compliance teams, portal developers, senior leadership, service owners... and users!
 
@@ -195,3 +195,4 @@ This didn't go particualrly badly by any stretch of the imagination, but:
 - Especially with senior or busy stakeholders, book early, and provide materials beforehand.
 - Less a lesson learned and more a trick to repeat next time!
 
+# Thanks!
