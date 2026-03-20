@@ -63,13 +63,6 @@
     "text": "Migration Options\n\n\n\nSymmetrical incremental\n\n\nLeast pressure on devs, most fragmented UX\n\n\n☹️\n\n\n\nAsymmetrical incremental\n\n\nARC TRE first, perhaps middle path for all\n\n\n🙃\n\n\n\nBig bang: all at once\n\n\nBest for users, worst for developers!\n\n\n🥴"
   },
   {
-    "objectID": "portal/index.html#migration-tbc",
-    "href": "portal/index.html#migration-tbc",
-    "title": "ARC Services Portal",
-    "section": "Migration TBC…",
-    "text": "Migration TBC…"
-  },
-  {
     "objectID": "portal/index.html#clear-communication-among-a-capable-team",
     "href": "portal/index.html#clear-communication-among-a-capable-team",
     "title": "ARC Services Portal",
@@ -81,7 +74,7 @@
     "href": "portal/index.html#fast-feedback-in-ignorance-of-current-platforms-internals",
     "title": "ARC Services Portal",
     "section": "2. Fast feedback in ignorance of current platform’s internals",
-    "text": "2. Fast feedback in ignorance of current platform’s internals\n\nIt’s difficult to replace a piece of software:\n\n\nUsers are familiar with the existing system\nUsers dislike some things - but love other thjings!\nTension between these two things needs careful management\nMany stakeholders: Info Gov admins, TRE Ops staff, compliance teams, portal developers, senior leadership, service owners… and users!"
+    "text": "2. Fast feedback in ignorance of current platform’s internals\n\nIt’s difficult to replace a piece of software:\n\n\nUsers are familiar with the existing system\nUsers dislike some things - but love other things!\nTension between these two things needs careful management\nMany stakeholders: Info Gov admins, TRE Ops staff, compliance teams, portal developers, senior leadership, service owners… and users!"
   },
   {
     "objectID": "portal/index.html#success-in-achieving-consensus-on-difficult-design-choices",
