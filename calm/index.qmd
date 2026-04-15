@@ -84,7 +84,9 @@ Cast your minds back
 1. Model using [Structurizr](https://docs.structurizr.com/) DSL
 
 ::: {.fragment .fade-left}
-{{< include code-blocks/workflow-i.md >}}
+
+{{< include code-blocks/workflow-i.qmd >}}
+
 :::
 
 ## Workflow {data-menu-title="Workflow (ii)"} 
@@ -93,14 +95,17 @@ Cast your minds back
 2. Create views
 :::
 
-{{< include code-blocks/workflow-ii.md >}}
+
+{{< include code-blocks/workflow-ii.qmd >}}
+
 
 ## Workflow {data-menu-title="Workflow (iii)"}
 
 ::: {.nonincremental}
 3. Apply styles
 :::
-{{< include code-blocks/workflow-iii.md >}}
+
+{{< include code-blocks/workflow-iii.qmd >}}
 
 ## Workflow {data-menu-title="Workflow (iv)"}
 
@@ -166,7 +171,9 @@ https://calm.finos.org/
 :::
 
 ::: {.fragment .fade-left}
-{{< include code-blocks/core-schema.md >}}
+
+{{< include code-blocks/core-schema.qmd >}}
+
 :::
 
 ## CALM's superpower
@@ -174,7 +181,9 @@ https://calm.finos.org/
 <span class="fragment" data-fragment-index="1">Patterns!</span> <span class="fragment" data-fragment-index="2">Through the use of the CALM CLI:</span>
 
 ::: {.fragment .fade-left}
-{{< include code-blocks/calm-cli.md >}}
+
+{{< include code-blocks/calm-cli.qmd >}}
+
 :::
 
 ## Patterns in CALM
@@ -184,7 +193,9 @@ In CALM, patterns are custom JSON schemas which adhere to the core CALM Meta Sch
 :::
 
 ::: {.fragment .fade-left}
-{{< include code-blocks/consumer-pattern-3.md >}}
+
+{{< include code-blocks/consumer-pattern-3.qmd >}}
+
 :::
 
 ## Controls in Patterns
@@ -194,19 +205,25 @@ You can include a control `requirement-url` and a control `config-url`
 :::
 
 ::: {.fragment .fade-left}
-{{< include code-blocks/consumer-pattern-3-control.md >}}
+
+{{< include code-blocks/consumer-pattern-3-control.qmd >}}
+
 :::
 
 ## Requirement
 
 ::: {.fragment .fade-left}
-{{< include code-blocks/control-requirement.md >}}
+
+{{< include code-blocks/control-requirement.qmd >}}
+
 :::
 
 ## Config
 
 ::: {.fragment .fade-left}
-{{< include code-blocks/control-config.md >}}
+
+{{< include code-blocks/control-config.qmd >}}
+
 :::
 
 ## Let's try a calm validate
@@ -217,18 +234,24 @@ You can include a control `requirement-url` and a control `config-url`
 :::
 
 ::: {.fragment .fade-left}
-{{< include code-blocks/validate-no-errors.md >}}
+
+{{< include code-blocks/validate-no-errors.qmd >}}
+
 :::
 
 ## Now let's change the architecture {data-menu-title="Architecture Change (i)"}
 
 ::: {.fragment .fade-left}
-{{< include code-blocks/architecture-valid.md >}}
+
+{{< include code-blocks/architecture-valid.qmd >}}
+
 :::
 
 ## Now let's change the architecture {data-menu-title="Architecture Change (ii)"}
 
-{{< include code-blocks/architecture-invalid.md >}}
+
+{{< include code-blocks/architecture-invalid.qmd >}}
+
 
 ## Result?
 
@@ -238,5 +261,7 @@ You can include a control `requirement-url` and a control `config-url`
 :::
 
 ::: {.fragment .fade-left}
-{{< include code-blocks/validate-errors.md >}}
+
+{{< include code-blocks/validate-errors.qmd >}}
+
 :::
