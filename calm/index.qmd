@@ -85,7 +85,7 @@ Cast your minds back
 
 ::: {.fragment .fade-left}
 
-{{< include code-blocks/workflow-i.qmd >}}
+{{< include _slides/workflow-i.qmd >}}
 
 :::
 
@@ -96,7 +96,7 @@ Cast your minds back
 :::
 
 
-{{< include code-blocks/workflow-ii.qmd >}}
+{{< include _slides/workflow-ii.qmd >}}
 
 
 ## Workflow {data-menu-title="Workflow (iii)"}
@@ -105,7 +105,7 @@ Cast your minds back
 3. Apply styles
 :::
 
-{{< include code-blocks/workflow-iii.qmd >}}
+{{< include _slides/workflow-iii.qmd >}}
 
 ## Workflow {data-menu-title="Workflow (iv)"}
 
@@ -172,7 +172,7 @@ https://calm.finos.org/
 
 ::: {.fragment .fade-left}
 
-{{< include code-blocks/core-schema.qmd >}}
+{{< include _slides/core-schema.qmd >}}
 
 :::
 
@@ -182,7 +182,7 @@ https://calm.finos.org/
 
 ::: {.fragment .fade-left}
 
-{{< include code-blocks/calm-cli.qmd >}}
+{{< include _slides/calm-cli.qmd >}}
 
 :::
 
@@ -194,7 +194,7 @@ In CALM, patterns are custom JSON schemas which adhere to the core CALM Meta Sch
 
 ::: {.fragment .fade-left}
 
-{{< include code-blocks/consumer-pattern-3.qmd >}}
+{{< include _slides/consumer-pattern-3.qmd >}}
 
 :::
 
@@ -206,7 +206,7 @@ You can include a control `requirement-url` and a control `config-url`
 
 ::: {.fragment .fade-left}
 
-{{< include code-blocks/consumer-pattern-3-control.qmd >}}
+{{< include _slides/consumer-pattern-3-control.qmd >}}
 
 :::
 
@@ -214,7 +214,7 @@ You can include a control `requirement-url` and a control `config-url`
 
 ::: {.fragment .fade-left}
 
-{{< include code-blocks/control-requirement.qmd >}}
+{{< include _slides/control-requirement.qmd >}}
 
 :::
 
@@ -222,7 +222,7 @@ You can include a control `requirement-url` and a control `config-url`
 
 ::: {.fragment .fade-left}
 
-{{< include code-blocks/control-config.qmd >}}
+{{< include _slides/control-config.qmd >}}
 
 :::
 
@@ -235,7 +235,7 @@ You can include a control `requirement-url` and a control `config-url`
 
 ::: {.fragment .fade-left}
 
-{{< include code-blocks/validate-no-errors.qmd >}}
+{{< include _slides/validate-no-errors.qmd >}}
 
 :::
 
@@ -243,14 +243,14 @@ You can include a control `requirement-url` and a control `config-url`
 
 ::: {.fragment .fade-left}
 
-{{< include code-blocks/architecture-valid.qmd >}}
+{{< include _slides/architecture-valid.qmd >}}
 
 :::
 
 ## Now let's change the architecture {data-menu-title="Architecture Change (ii)"}
 
 
-{{< include code-blocks/architecture-invalid.qmd >}}
+{{< include _slides/architecture-invalid.qmd >}}
 
 
 ## Result?
@@ -262,6 +262,6 @@ You can include a control `requirement-url` and a control `config-url`
 
 ::: {.fragment .fade-left}
 
-{{< include code-blocks/validate-errors.qmd >}}
+{{< include _slides/validate-errors.qmd >}}
 
 :::
